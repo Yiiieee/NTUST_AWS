@@ -8,7 +8,7 @@ import glob
 from deepface import DeepFace
 
 # ================= 參數設定 =================
-PI_IP = '192.168.x.x'  # 樹莓派 IP 地址
+PI_IP = '192.168.x.x'  # 樹莓派的 IP 地址
 PI_PORT = 65432
 
 # tcp 串流
