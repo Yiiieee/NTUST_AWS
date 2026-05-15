@@ -141,11 +141,40 @@ class CloudSync:
             if not self.connected:
                 return False
             
-            # 準備要上傳的 JSON 資料結構
+            image_url = None
+            if image_bytes:
+                # 確保 timestamp 可以作為安全的檔名
+                safe_timestamp = timestamp.replace(":", "-").replace(".", "-")
+                filename = f"intruder_{safe_timestamp}.jpg"
+                
+                try:
+                    # 嘗試上傳圖片到 Supabase Storage (Bucket 名為 'intruders')
+                    self.client.storage.from_("intruders").upload(
+                        path=filename,
+                        file=image_bytes,
+                        file_options={"content-type": "image/jpeg"}
+                    )
+                except Exception as e:
+                    # 如果 Bucket 不存在，先嘗試建立
+                    try:
+                        self.client.storage.create_bucket("intruders", options={"public": True})
+                        self.client.storage.from_("intruders").upload(
+                            path=filename,
+                            file=image_bytes,
+                            file_options={"content-type": "image/jpeg"}
+                        )
+                    except Exception as inner_e:
+                        print(f"✗ Storage 圖片上傳失敗: {inner_e}")
+                        return False
+
+                # 取得圖片的公開預覽網址
+                image_url = self.client.storage.from_("intruders").get_public_url(filename)
+            
+            # 準備要上傳的 JSON 資料結構 (將原本的 Hex 文字改成公開網址)
             record = {
                 "created_at": timestamp,
                 "detection_status": "intruder_detected",
-                "image_data": image_bytes.hex() if image_bytes else None
+                "image_data": image_url
             }
             
             # 執行插入資料到 Supabase
@@ -186,10 +215,34 @@ class CloudSync:
             synced_count = 0
             for record_id, timestamp, image_data in records:
                 try:
+                    image_url = None
+                    if image_data:
+                        safe_timestamp = timestamp.replace(":", "-").replace(".", "-")
+                        filename = f"intruder_{safe_timestamp}.jpg"
+                        
+                        try:
+                            self.client.storage.from_("intruders").upload(
+                                path=filename,
+                                file=image_data,
+                                file_options={"content-type": "image/jpeg"}
+                            )
+                        except Exception as e:
+                            try:
+                                self.client.storage.create_bucket("intruders", options={"public": True})
+                                self.client.storage.from_("intruders").upload(
+                                    path=filename,
+                                    file=image_data,
+                                    file_options={"content-type": "image/jpeg"}
+                                )
+                            except:
+                                pass
+                        
+                        image_url = self.client.storage.from_("intruders").get_public_url(filename)
+
                     cloud_record = {
                         "created_at": timestamp,
                         "detection_status": "intruder_detected",
-                        "image_data": image_data.hex() if image_data else None
+                        "image_data": image_url
                     }
                     
                     response = self.client.table("intruder_logs").insert(cloud_record).execute()
