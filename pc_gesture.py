@@ -6,6 +6,8 @@ import time
 import os
 import glob
 from deepface import DeepFace
+from datetime import datetime
+from cloud_sync import init_cloud_sync, upload_intruder
 
 # ================= 參數設定 =================
 PI_IP = '192.168.x.x'  # 樹莓派的 IP 地址
@@ -35,6 +37,24 @@ def connect_to_pi():
     except Exception as e:
         print(f" 無法連線到樹莓派: {e}")
         return None
+
+# ================= 影片來源設定 =================
+def open_video_capture():
+    cap = cv2.VideoCapture(STREAM_URL)
+    if cap.isOpened():
+        print(f"已開啟影像串流: {STREAM_URL}")
+        return cap
+    print(f"無法開啟影像串流: {STREAM_URL}")
+    cap.release()
+
+    print("切換回本機測試鏡頭 (0)")
+    cap = cv2.VideoCapture(0)
+    if cap.isOpened():
+        print("已開啟本機攝影機 0")
+        return cap
+    print("無法開啟本機攝影機 0")
+    cap.release()
+    return None
 
 # ================= 手勢辨識設定 =================
 mp_hands = mp.solutions.hands
@@ -101,187 +121,204 @@ def main():
     else:
         print(f"已在 {OWNERS_DIR} 資料夾中找到 {len(owner_images)} 照片。")
 
+    # 初始化云端同步
+    print("\n========== 初始化 (Supabase) ==========")
+    init_cloud_sync()
+
     # 連線到樹莓派
     pi_socket = connect_to_pi()
     
-    # 開啟影像串流 
-    cap = cv2.VideoCapture(STREAM_URL)
-    
-    if not cap.isOpened():
-        print(f"無法開啟影像串流: {STREAM_URL}")
-        print("切換回本機測試鏡頭 (0)")
-        cap = cv2.VideoCapture(0)
+    # 開啟影像來源：先串流，若無法則回退至本機攝影機
+    cap = open_video_capture()
+    if cap is None:
+        print("無法開啟任何影像來源，程式結束。")
+        return
 
-    last_signal_time = 0
-    COOLDOWN = 5.0  # 偵測的冷卻時間 
+    try:
+        last_signal_time = 0
+        COOLDOWN = 10.0  # 延長冷卻時間，避免連續觸發兩次
+        
+        print("開始讀取影像與手勢辨識...")
+        while True:
+            success, img = cap.read()
+            if not success:
+                print("無法讀取畫面，重試中...")
+                time.sleep(1)
+                continue
 
-    print("開始讀取影像與手勢辨識...")
-    while True:
-        success, img = cap.read()
-        if not success:
-            print("無法讀取畫面，重試中...")
-            time.sleep(1)
-            continue
-
-        img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        
-        face_crop = None
-        face_results = face_detection.process(img_rgb)
-        if face_results.detections:
-            # 取出第一個偵測到的人臉
-            detection = face_results.detections[0]
-            bboxC = detection.location_data.relative_bounding_box
-            ih, iw, _ = img.shape
-            x = int(bboxC.xmin * iw)
-            y = int(bboxC.ymin * ih)
-            w = int(bboxC.width * iw)
-            h = int(bboxC.height * ih)
+            img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             
-            #  margin 
-            margin_x = int(w * 0.2)
-            margin_y = int(h * 0.2)
-            x1 = max(0, x - margin_x)
-            y1 = max(0, y - margin_y)
-            x2 = min(iw, x + w + margin_x)
-            y2 = min(ih, y + h + margin_y)
-            
-            # 畫出 Box line 
-            # cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 255), 2)
-            # cv2.putText(img, "Face Align", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
-            
-            face_crop = img[y1:y2, x1:x2]
-        
-        results = hands.process(img_rgb)
-        
-        if results.multi_hand_landmarks:
-            for hand_landmarks in results.multi_hand_landmarks:
-                mp_draw.draw_landmarks(img, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+            face_crop = None
+            face_results = face_detection.process(img_rgb)
+            if face_results.detections:
+                # 取出第一個偵測到的人臉
+                detection = face_results.detections[0]
+                bboxC = detection.location_data.relative_bounding_box
+                ih, iw, _ = img.shape
+                x = int(bboxC.xmin * iw)
+                y = int(bboxC.ymin * ih)
+                w = int(bboxC.width * iw)
+                h = int(bboxC.height * ih)
                 
-                fingers = count_fingers(hand_landmarks)
-                cv2.putText(img, f"Fingers: {fingers}", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+                #  margin 
+                margin_x = int(w * 0.4)
+                margin_y = int(h * 0.4)
+                x1 = max(0, x - margin_x)
+                y1 = max(0, y - margin_y)
+                x2 = min(iw, x + w + margin_x)
+                y2 = min(ih, y + h + margin_y)
                 
-                current_time = time.time()
-                # 當偵測到手勢 1，且過了冷卻時間
-                if fingers == 1 and (current_time - last_signal_time > COOLDOWN):
-                    print("=====================================")
-                    print(" 偵測到手勢 '1'，開始進行人臉身分驗證...")
+                face_crop = img[y1:y2, x1:x2]
+            
+            results = hands.process(img_rgb)
+            
+            if results.multi_hand_landmarks:
+                for hand_landmarks in results.multi_hand_landmarks:
+                    mp_draw.draw_landmarks(img, hand_landmarks, mp_hands.HAND_CONNECTIONS)
                     
-                    # Box line裁切後再送給 DeepFace
-                    face_crop = None
-                    with mp.solutions.face_detection.FaceDetection(model_selection=0, min_detection_confidence=0.6) as recognition_face_detection:
-                        recognition_results = recognition_face_detection.process(img_rgb)
-                        if recognition_results.detections:
-                            # 取出第一個偵測到的人臉
-                            detection = recognition_results.detections[0]
-                            bboxC = detection.location_data.relative_bounding_box
-                            ih, iw, _ = img.shape
-                            x = int(bboxC.xmin * iw)
-                            y = int(bboxC.ymin * ih)
-                            w = int(bboxC.width * iw)
-                            h = int(bboxC.height * ih)
-                            
-                            # 加上 margin 確保完整包含臉部
-                            margin_x = int(w * 0.2)
-                            margin_y = int(h * 0.2)
-                            x1 = max(0, x - margin_x)
-                            y1 = max(0, y - margin_y)
-                            x2 = min(iw, x + w + margin_x)
-                            y2 = min(ih, y + h + margin_y)
-                            
-                            #  照片上的 Box line 
-                            cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 255), 2)
-                            cv2.putText(img, "Face Crop", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
-                            
-                            face_crop = img[y1:y2, x1:x2]
+                    fingers = count_fingers(hand_landmarks)
+                    cv2.putText(img, f"Fingers: {fingers}", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
                     
-                    if face_crop is None or face_crop.size == 0:
-                        print(" 畫面中未偵測到清晰的人臉，請重試！")
-                        cv2.putText(img, "NO FACE DETECTED", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 165, 255), 3)
-                        last_signal_time = current_time
-                        continue
-                    
-                    # 重新讀取照片清單
-                    owner_images = glob.glob(os.path.join(OWNERS_DIR, "*.[jJ][pP][gG]")) + glob.glob(os.path.join(OWNERS_DIR, "*.[pP][nN][gG]"))
-                    
-                    if not owner_images:
-                        print(f" 錯誤：{OWNERS_DIR} 資料夾中沒有任何照片，拒絕進入！")
-                        last_signal_time = current_time
-                        continue
-                    
-                    is_verified = False
-                    matched_owner = ""
-                    
-                    try:
-                        print(f" 正在與第{len(owner_images)}張照片進行比對，請稍候...")
+                    current_time = time.time()
+                    # 當偵測到手勢 1，且過了冷卻時間
+                    if fingers == 1 and (current_time - last_signal_time > COOLDOWN):
+                        print("=====================================")
+                        print(" 偵測到手勢 '1'，開始進行人臉身分驗證...")
                         
-                        
-                        for owner_img_path in owner_images:
-                        
-                            owner_img = cv2.imdecode(np.fromfile(owner_img_path, dtype=np.uint8), cv2.IMREAD_COLOR)
-                            
-                            if owner_img is None:
-                                print(f"  無法讀取照片: {owner_img_path}")
-                                continue
+                        # Box line裁切後再送給 DeepFace
+                        face_crop = None
+                        with mp.solutions.face_detection.FaceDetection(model_selection=0, min_detection_confidence=0.6) as recognition_face_detection:
+                            recognition_results = recognition_face_detection.process(img_rgb)
+                            if recognition_results.detections:
+                                # 取出第一個偵測到的人臉
+                                detection = recognition_results.detections[0]
+                                bboxC = detection.location_data.relative_bounding_box
+                                ih, iw, _ = img.shape
+                                x = int(bboxC.xmin * iw)
+                                y = int(bboxC.ymin * ih)
+                                w = int(bboxC.width * iw)
+                                h = int(bboxC.height * ih)
                                 
-                            match_result = DeepFace.verify(
-                                img1_path=owner_img,            
-                                img2_path=face_crop,           
-                                model_name="ArcFace",         
-                                detector_backend="opencv",     
-                                enforce_detection=False
-                            )
-                            
-                            if match_result["verified"]:
-                                is_verified = True
-                                matched_owner = os.path.basename(owner_img_path)
-                                break 
+                                # 加上 margin 確保完整包含臉部
+                                margin_x = int(w * 0.4)
+                                margin_y = int(h * 0.4)
+                                x1 = max(0, x - margin_x)
+                                y1 = max(0, y - margin_y)
+                                x2 = min(iw, x + w + margin_x)
+                                y2 = min(ih, y + h + margin_y)
+                                
+                                #  照片上的 Box line 
+                                cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 255), 2)
+                                cv2.putText(img, "Face Crop", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
+                                
+                                face_crop = img[y1:y2, x1:x2]
                         
-                        if is_verified:
-                            print(f" 驗證成功！符合的身分: {matched_owner}")
-                            print(" 準備發送開門訊號至樹莓派！")
-                            cv2.putText(img, "ACCESS GRANTED", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
+                        if face_crop is None or face_crop.size == 0:
+                            print(" 畫面中未偵測到清晰的人臉，請重試！")
+                            cv2.putText(img, "NO FACE DETECTED", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 165, 255), 3)
+                            last_signal_time = current_time
+                            continue
+                        
+                        # 重新讀取照片清單
+                        owner_images = glob.glob(os.path.join(OWNERS_DIR, "*.[jJ][pP][gG]")) + glob.glob(os.path.join(OWNERS_DIR, "*.[pP][nN][gG]"))
+                        
+                        if not owner_images:
+                            print(f" 錯誤：{OWNERS_DIR} 資料夾中沒有任何照片，拒絕進入！")
+                            last_signal_time = current_time
+                            continue
+                        
+                        is_verified = False
+                        matched_owner = ""
+                        
+                        try:
+                            print(f" 正在與第{len(owner_images)}張照片進行比對，請稍候...")
                             
-                            # 發送訊號
-                            if pi_socket:
-                                try:
-                                    pi_socket.sendall(b"1")
-                                    pi_socket.setblocking(False)
+                            for owner_img_path in owner_images:
+                                owner_img = cv2.imdecode(np.fromfile(owner_img_path, dtype=np.uint8), cv2.IMREAD_COLOR)
+                                
+                                if owner_img is None:
+                                    print(f"  無法讀取照片: {owner_img_path}")
+                                    continue
+                                    
+                                match_result = DeepFace.verify(
+                                    img1_path=owner_img,            
+                                    img2_path=face_crop,           
+                                    model_name="ArcFace",         
+                                    detector_backend="opencv",     
+                                    enforce_detection=False
+                                )
+                                
+                                if match_result["verified"]:
+                                    is_verified = True
+                                    matched_owner = os.path.basename(owner_img_path)
+                                    break 
+                            
+                            if is_verified:
+                                print(f" 驗證成功！符合的身分: {matched_owner}")
+                                print(" 準備發送開門訊號至樹莓派！")
+                                cv2.putText(img, "ACCESS GRANTED", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
+                                
+                                # 發送訊號
+                                if pi_socket:
                                     try:
-                                        resp = pi_socket.recv(1024)
-                                        print(f" 樹莓派回傳: {resp.decode().strip()}")
-                                    except BlockingIOError:
-                                        pass
-                                    pi_socket.setblocking(True)
-                                except Exception as e:
-                                    print(f" 傳送失敗，嘗試重新連線... 錯誤: {e}")
-                                    pi_socket = connect_to_pi()
-                        else:
-                            print(" 驗證失敗！拒絕進入。所有白名單皆不符合。")
-                            cv2.putText(img, "ACCESS DENIED", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
+                                        pi_socket.sendall(b"1")
+                                        pi_socket.setblocking(False)
+                                        try:
+                                            resp = pi_socket.recv(1024)
+                                            print(f" 樹莓派回傳: {resp.decode().strip()}")
+                                        except BlockingIOError:
+                                            pass
+                                        pi_socket.setblocking(True)
+                                    except Exception as e:
+                                        print(f" 傳送失敗，嘗試重新連線... 錯誤: {e}")
+                                        pi_socket = connect_to_pi()
+                            else:
+                                print(" 驗證失敗！拒絕進入。所有白名單皆不符合。")
+                                cv2.putText(img, "ACCESS DENIED", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
+                                
+                                # 儲存闖入者照片
+                                timestamp = time.strftime("%Y%m%d_%H%M%S")
+                                intruder_filename = os.path.join(INTRUDER_DIR, f"intruder_{timestamp}.jpg")
+                                cv2.imwrite(intruder_filename, img)
+                                print(f" 已拍下闖入者照片並存至: {intruder_filename}")
+                                
+                                # 上傳至雲端
+                                _, img_encoded = cv2.imencode('.jpg', img)
+                                upload_intruder(image_path=intruder_filename, image_bytes=img_encoded.tobytes())
+                                
+                        except Exception as e:
+                            print(f" 人臉辨識發生錯誤: {e}")
                             
-                            # 儲存闖入者照片
-                            timestamp = time.strftime("%Y%m%d_%H%M%S")
-                            intruder_filename = os.path.join(INTRUDER_DIR, f"intruder_{timestamp}.jpg")
-                            cv2.imwrite(intruder_filename, img)
-                            print(f" 已拍下闖入者照片並存至: {intruder_filename}")
-                            
-                    except Exception as e:
-                        print(f" 人臉辨識發生錯誤: {e}")
+                        last_signal_time = time.time()  # 更新時間避免連續觸發
                         
-                    last_signal_time = time.time()  # 更新時間避免連續觸發
+                       
+                        for _ in range(5):
+                            cap.read()
 
-        # 顯示影像
-        cv2.imshow("PC Gesture & Face Control", img)
-        
-        # 按 'q' 離開
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-    
-    cap.release()
-    cv2.destroyAllWindows()
-    if pi_socket:
-        pi_socket.close()
+            # 顯示影像
+            cv2.imshow("PC Gesture & Face Control", img)
+            
+            # 按 'q' 或 'Q' 離開
+            key = cv2.waitKey(1) & 0xFF
+            if key == ord('q') or key == ord('Q'):
+                print("收到離開指令，準備關閉...")
+                break
+                
+    except KeyboardInterrupt:
+        print("\n使用者強制中斷程式 (Ctrl+C)")
+    except Exception as e:
+        print(f"\n程式發生非預期錯誤: {e}")
+    finally:
+        print("\n========== 正在釋放相機與連線資源 ==========")
+        if 'cap' in locals() and cap is not None and cap.isOpened():
+            cap.release()
+            print("✓ 相機資源已釋放")
+        cv2.destroyAllWindows()
+        print("✓ 顯示視窗已關閉")
+        if 'pi_socket' in locals() and pi_socket:
+            pi_socket.close()
+            print("✓ 樹莓派連線已關閉")
+        print("程式結束。")
 
 if __name__ == '__main__':
     main()
