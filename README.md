@@ -64,6 +64,10 @@
 ![樹梅派與馬達的接線圖](docs/images/wiring_diagram.png)
 > *說明：Raspberry Pi Zero 2 WH 與 ULN2003 步進馬達驅動板的詳細 GPIO 接線配置，負責實現門片向後推開的物理機構設計。*
 
+### 3. Zero 2w 腳位圖
+![樹梅派與馬達的接線圖](docs/images/wiring_diagram.png)
+> *說明：Raspberry Pi Zero 2 WH 的針腳位置參考。*
+
 ---
 
 ## ✨ 系統核心功能與技術優勢 (Core Features & Technical Advantages)
