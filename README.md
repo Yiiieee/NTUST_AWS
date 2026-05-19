@@ -1,7 +1,7 @@
 <div align="center">
 
 # 🚪 Smart Face Recognition Door Lock
-**結合邊緣運算 (Edge Computing)、AI 電腦視覺與物聯網 (IoT) 技術的現代化智慧門鎖解決方案。**
+**結合邊緣運算 (Edge Computing)、AI 電腦視覺與物聯網 (IoT) 技術的智慧門鎖。**
 
 ![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Raspberry Pi](https://img.shields.io/badge/-RaspberryPi-C51A4A?style=for-the-badge&logo=Raspberry-Pi)
