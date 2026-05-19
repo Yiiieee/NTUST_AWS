@@ -58,7 +58,7 @@
 | :---: | :---: |
 | <img src="docs/images/motor_action.gif" width="400" alt="馬達轉動畫面"> | <img src="docs/images/pc_camera_stream.jpg" width="400" alt="PC端顯示樹梅派的相機畫面"> |
 | *驗證成功後，發送指令驅動馬達將推開* | *PC 端即時接收並顯示來自門外樹莓派的 TCP 低延遲影像* |
-| **✅ 辨識成功 ** | **❌ 異常攔截 ** |
+| ✅ 辨識成功  | ❌ 異常攔截 |
 | <img src="docs/images/auth_success.jpg" width="400" alt="成功辨別是主人"> | <img src="docs/images/auth_failed.jpg" width="400" alt="成功辨別非主人"> |
 | *成功辨識臉部特徵，顯示高置信度並亮起綠燈觸發開門* | *偵測到非白名單人臉，拒絕開門並觸發現場抓拍與雲端上傳* |
 
