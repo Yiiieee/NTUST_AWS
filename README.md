@@ -13,14 +13,38 @@
 
 <br>
 
-## 📖 專案目錄 (Table of Contents)
-- [🎥 成果展示](#-成果展示-demo--showcase)
-- [✨ 核心功能與技術優勢](#-系統核心功能與技術優勢)
-- [🗺️ 系統圖解與架構](#-系統圖解與架構)
-- [⚙️ 環境建置與硬體準備](#-環境與硬體準備)
-- [🚀 部署與啟動](#-系統部署與啟動)
-- [🛠️ 故障排除與維護](#-故障排除與維護)
-- [👥 團隊成員](#-團隊成員)
+<details>
+<summary><b>📖 點擊展開專案目錄 (Table of Contents)</b></summary>
+
+- [🎥 成果展示 (Demo & Showcase)](#-成果展示-demo--showcase)
+  - [💻 1. PC Node](#-1-pc-node)
+  - [📡 2. 樹莓派終端設備 (Raspberry Pi Node)](#-2-樹莓派終端設備-raspberry-pi-node)
+- [🗺️ 系統圖解 (System Diagrams)](#️-系統圖解-system-diagrams)
+  - [1. 系統完整流程圖 (System Flowchart)](#1-系統完整流程圖-system-flowchart)
+  - [2. 硬體接線圖 (Wiring Diagram)](#2-硬體接線圖-wiring-diagram)
+  - [3. Zero 2w 腳位圖](#3-zero-2w-腳位圖)
+- [✨ 系統核心功能與技術優勢 (Core Features & Technical Advantages)](#-系統核心功能與技術優勢-core-features--technical-advantages)
+  - [🖐️ 電腦視覺低功耗喚醒機制](#️-電腦視覺低功耗喚醒機制)
+  - [🧠 雙引擎深度學習人臉辨識](#-雙引擎深度學習人臉辨識)
+  - [☁️ 邊緣與雲端協同即時監控](#️-邊緣與雲端協同即時監控)
+  - [📶 高強健性非同步容錯傳輸](#-高強健性非同步容錯傳輸)
+  - [🔄 自適應白名單特徵擴充](#-自適應白名單特徵擴充)
+- [🏗️ 系統架構 (System Architecture)](#️-系統架構-system-architecture)
+  - [📡 終端設備端 (Raspberry Pi Zero 2 WH)](#-終端設備端-raspberry-pi-zero-2-wh)
+  - [💻 核心運算端 (PC)](#-核心運算端-pc)
+- [📂 專案目錄結構 (Project Structure)](#-專案目錄結構-project-structure)
+- [🛡️ 安全防護與雲端整合 (Security & Cloud)](#️-安全防護與雲端整合-security--cloud)
+- [⚙️ 環境與硬體準備 (Environment & Hardware Setup)](#️-環境與硬體準備-environment--hardware-setup)
+  - [【PC 端】核心大腦](#pc-端核心大腦)
+  - [【樹莓派端】眼睛與手](#樹莓派端眼睛與手)
+- [🚀 系統部署與啟動](#-系統部署與啟動)
+  - [步驟 1：同步程式碼至邊緣端](#步驟-1同步程式碼至邊緣端)
+  - [步驟 2：依序啟動系統](#步驟-2依序啟動系統)
+- [🛠️ 維護與測試 (Maintenance & Testing)](#️-維護與測試-maintenance--testing)
+- [📦 物料清單 (BOM)](#-物料清單-bom)
+- [👥 團隊成員 (Team Members)](#-團隊成員-team-members)
+
+</details>
 
 ---
 
@@ -41,6 +65,7 @@
 ### 📡 2. 樹莓派終端設備 (Raspberry Pi Node)
 
 **🍓 樹莓派硬體與推門機構整體外觀**  
+<br>
 <img src="docs/images/pi_hardware_setup.jpg" width="800" alt="樹梅派整體外觀">  
 > *Pi Zero 2 WH、攝影機、步進馬達與 ULN2003 驅動板的實體組裝外觀（包含向後推開的門片機構）*
 
