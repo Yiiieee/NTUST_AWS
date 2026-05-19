@@ -2,6 +2,12 @@ import cv2
 import socket
 import time
 
+"""Raspberry Pi video stream client
+
+This client captures a local camera feed and streams JPEG frames to the PC host over TCP.
+It reduces resolution and JPEG quality to improve network performance.
+"""
+
 PC_IP = '192.168.0.148'  # PC 的區域網路 IP
 PC_PORT = 65434          # PC 接收影像的 Port
 
@@ -10,6 +16,7 @@ def stream_video():
     cap = cv2.VideoCapture(0)
     
     # 降低解析度以提升傳輸速度與流暢度
+    # 這樣做是為了讓網路串流更穩定，避免大量影像資料造成延遲。
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 

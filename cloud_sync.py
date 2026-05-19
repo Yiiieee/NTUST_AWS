@@ -9,6 +9,13 @@ from supabase import create_client, Client
 import threading
 import time
 
+"""CloudSync module
+
+This module manages offline-safe uploads of intruder images and logs to Supabase.
+It stores detected intruder images locally in SQLite before uploading,
+then retries failed uploads automatically in a background worker.
+"""
+
 # ================= Supabase 設定 =================
 SUPABASE_URL = "https://iyzkimsbcvzxzhbvvlrf.supabase.co"
 SUPABASE_KEY = "sb_publishable_9UyTV4wxUCkC2jwqTpSsoQ_91b64QoX"
@@ -153,6 +160,7 @@ class CloudSync:
                         path=filename,
                         file=image_bytes,
                         file_options={"content-type": "image/jpeg"}
+                        
                     )
                 except Exception as e:
                     # 如果 Bucket 不存在，先嘗試建立

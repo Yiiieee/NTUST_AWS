@@ -2,6 +2,12 @@
 
 from supabase import create_client, Client
 
+"""Supabase initialization helper
+
+This script is used to verify the Supabase connection and confirm the
+intruder_logs table exists. It is a lightweight setup/check utility.
+"""
+
 SUPABASE_URL = "https://iyzkimsbcvzxzhbvvlrf.supabase.co"
 SUPABASE_KEY = "sb_publishable_9UyTV4wxUCkC2jwqTpSsoQ_91b64QoX"
 

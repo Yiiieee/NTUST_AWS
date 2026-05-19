@@ -10,6 +10,7 @@ from deepface import DeepFace
 from datetime import datetime
 from cloud_sync import init_cloud_sync, upload_intruder
 
+
 # ================= 參數設定 =================
 PI_IP = '192.168.0.192'  # 樹莓派的 IP 地址
 PI_PORT = 65432
@@ -130,13 +131,13 @@ def count_fingers(hand_landmarks):
     return count
 
 def is_blurry(image, threshold=80.0):
-    """ 計算影像的拉普拉斯變異數，數值越低代表越模糊 """
+
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     variance = cv2.Laplacian(gray, cv2.CV_64F).var()
     return variance < threshold, variance
 
 def apply_clahe(image):
-    """ 應用 CLAHE (限制對比度自適應直方圖均衡化) 以對抗背光和昏暗環境 """
+
     lab = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
     l, a, b = cv2.split(lab)
     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
@@ -152,7 +153,7 @@ def main():
         print(f"已在 {OWNERS_DIR} 資料夾中找到 {len(owner_images)} 照片。")
 
     print("\n========== 初始化 (Supabase) ==========")
-    init_cloud_sync()
+    init_cloud_sync()  # 初始化 Supabase 
 
     # 連線到樹莓派 (發送馬達指令用)
     pi_socket = connect_to_pi()
@@ -176,6 +177,7 @@ def main():
             img = None
             
             # 優先使用樹莓派傳來的即時影像
+            # 這樣可讓樹莓派攝影機畫面直接顯示在 PC 上，並保持模型判斷一致
             if stream_active and latest_frame_data:
                 np_arr = np.frombuffer(latest_frame_data, np.uint8)
                 img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
@@ -194,7 +196,6 @@ def main():
             ih, iw, _ = img.shape
             
             # --- 繪製固定導引框 ---
-            # 讓使用者把臉對準這個框，徹底排除背景干擾
             box_size = 300
             box_x1 = max(0, (iw - box_size) // 2)
             box_y1 = max(0, (ih - box_size) // 2)
@@ -227,13 +228,13 @@ def main():
                             continue
                             
                         # 檢查影像是否過於模糊 (只檢查目標框內)
-                        blurry, var = is_blurry(target_crop, threshold=50.0) # 稍微放寬防模糊標準
+                        blurry, var = is_blurry(target_crop, threshold=50.0) 
                         if blurry:
                             print(f" 警告：影像過於模糊 (清晰度: {var:.2f})，請保持靜止！")
                             cv2.putText(img, f"BLURRY: {var:.1f} - STAY STILL!", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
                             continue
                             
-                        # 應用 CLAHE 影像強化 (只針對目標框，杜絕背景干擾)
+            
                         enhanced_crop = apply_clahe(target_crop)
                         print(f" (已套用 CLAHE 影像強化，清晰度: {var:.2f})")
                         
@@ -258,11 +259,12 @@ def main():
                                     
                                 try:
                                     # 1. 第一關：ArcFace 驗證 (只傳入無背景的 enhanced_crop)
+                                    # ArcFace 速度較快且對人臉特徵距離判定較穩定。
                                     match_result = DeepFace.verify(
                                         img1_path=owner_img,            
                                         img2_path=enhanced_crop,           
                                         model_name="ArcFace",         
-                                        detector_backend="opencv", # 框內已經是乾淨的臉，用 opencv 即可
+                                        detector_backend="mtcnn", # 使用 mtcnn 提高人臉偵測準確度，避免 opencv 誤判背景
                                         enforce_detection=True
                                     )
                                     
@@ -278,17 +280,18 @@ def main():
                                         if distance < 0.25 and len(owner_images) < 15:
                                             new_path = os.path.join(OWNERS_DIR, f"auto_learn_{int(time.time())}.jpg")
                                             cv2.imwrite(new_path, img)
-                                            print(f"   ★ [自動學習] 已儲存高置信度臉部特徵至白名單！")
+                                            print(f"已儲存高置信度臉部特徵至白名單！")
                                         break
                                         
                                     # 2. 第二關 (Fallback)：如果 ArcFace 些微差距沒過，啟動 Facenet 雙重驗證
                                     elif distance < 0.60:
+                                        # 若 ArcFace 接近門檻但略有差距，啟用第二關 Facenet 進行雙重驗證。
                                         print(f"   -> ArcFace 些微差距未過，啟用 Facenet 二次確認...")
                                         fallback_result = DeepFace.verify(
                                             img1_path=owner_img,            
                                             img2_path=enhanced_crop,           
                                             model_name="Facenet",         
-                                            detector_backend="opencv",     
+                                            detector_backend="mtcnn",     
                                             enforce_detection=True
                                         )
                                         f_distance = fallback_result.get("distance", 1.0)
@@ -297,7 +300,7 @@ def main():
                                         
                                         # Facenet 預設門檻大約是 0.40
                                         if f_verified and f_distance < 0.35:
-                                            print("   ★ [雙模型驗證] Facenet 確認為本人！")
+                                            print("  Facenet 確認為本人！")
                                             is_verified = True
                                             matched_owner = os.path.basename(owner_img_path)
                                             break
@@ -313,7 +316,7 @@ def main():
                                 
                                 if pi_socket:
                                     try:
-                                        pi_socket.sendall(b"1")
+                                        pi_socket.sendall(b"1\n")
                                         pi_socket.setblocking(False)
                                         try:
                                             resp = pi_socket.recv(1024)
@@ -342,6 +345,7 @@ def main():
                                         print(f" 傳送 '0' 失敗，嘗試重新連線... 錯誤: {e}")
                                         pi_socket = connect_to_pi()
                                 
+                                # 保存闖入者畫面，並透過 cloud_sync 上傳至 Supabase。
                                 timestamp = time.strftime("%Y%m%d_%H%M%S")
                                 intruder_filename = os.path.join(INTRUDER_DIR, f"intruder_{timestamp}.jpg")
                                 cv2.imwrite(intruder_filename, img)
