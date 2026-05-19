@@ -1,33 +1,47 @@
-# 🚪 Smart Face Recognition Door Lock 
+<div align="center">
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+# 🚪 Smart Face Recognition Door Lock
+**結合邊緣運算 (Edge Computing)、AI 電腦視覺與物聯網 (IoT) 技術的現代化智慧門鎖解決方案。**
+
+![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Raspberry Pi](https://img.shields.io/badge/-RaspberryPi-C51A4A?style=for-the-badge&logo=Raspberry-Pi)
 ![OpenCV](https://img.shields.io/badge/OpenCV-27338e?style=for-the-badge&logo=OpenCV&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
 
-> **結合邊緣運算 (Edge Computing)、AI 電腦視覺與物聯網 (IoT) 技術的現代化智慧門鎖解決方案。**
+</div>
+
+<br>
+
+## 📖 專案目錄 (Table of Contents)
+- [🎥 成果展示](#-成果展示-demo--showcase)
+- [✨ 核心功能與技術優勢](#-系統核心功能與技術優勢)
+- [🗺️ 系統圖解與架構](#-系統圖解與架構)
+- [⚙️ 環境建置與硬體準備](#-環境與硬體準備)
+- [🚀 部署與啟動](#-系統部署與啟動)
+- [🛠️ 故障排除與維護](#-故障排除與維護)
+- [👥 團隊成員](#-團隊成員)
 
 ---
 
 ## 🎥 成果展示 (Demo & Showcase)
 
-為了讓展示更直觀，以下將實際運行成果分為 **PC 核心運算端** 與 **樹莓派邊緣終端** 進行圖文對照。
+運行成果分為 **PC 核心運算端** 與 **樹莓派邊緣終端** 進行圖文對照。
 
-### 💻 1. PC 端運算與監控中心 (PC Node)
+### 💻 1. PC Node
 
-| 🚪 實體開門作動 (GIF) | 📡 即時影像監控串流 |
+| 🚪 實體開門作動  | 📡 即時影像監控串流 |
 | :---: | :---: |
 | <img src="docs/images/motor_action.gif" width="400" alt="馬達轉動畫面"> | <img src="docs/images/pc_camera_stream.jpg" width="400" alt="PC端顯示樹梅派的相機畫面"> |
-| *驗證成功後，發送指令驅動馬達將門平穩**向後推開**的作動畫面* | *PC 端即時接收並顯示來自門外樹莓派的 TCP 低延遲影像* |
-| **✅ 辨識成功 (主人/白名單)** | **❌ 異常攔截 (陌生人/非白名單)** |
+| *驗證成功後，發送指令驅動馬達將推開* | *PC 端即時接收並顯示來自門外樹莓派的 TCP 低延遲影像* |
+| **✅ 辨識成功 ** | **❌ 異常攔截 ** |
 | <img src="docs/images/auth_success.jpg" width="400" alt="成功辨別是主人"> | <img src="docs/images/auth_failed.jpg" width="400" alt="成功辨別非主人"> |
-| *成功辨識主人臉部特徵，顯示高置信度並亮起綠燈觸發開門* | *偵測到非白名單人臉，拒絕開門並觸發現場抓拍與雲端上傳* |
+| *成功辨識臉部特徵，顯示高置信度並亮起綠燈觸發開門* | *偵測到非白名單人臉，拒絕開門並觸發現場抓拍與雲端上傳* |
 
 ### 📡 2. 樹莓派終端設備 (Raspberry Pi Node)
 
-**🍓 樹莓派硬體與推門機構整體外觀**  
-<img src="docs/images/pi_hardware_setup.jpg" width="800" alt="樹梅派整體外觀">  
+**🍓 樹莓派硬體與推門機構整體外觀**  
+<img src="docs/images/pi_hardware_setup.jpg" width="800" alt="樹梅派整體外觀">  
 > *Pi Zero 2 WH、攝影機、步進馬達與 ULN2003 驅動板的實體組裝外觀（包含向後推開的門片機構）*
 
 <br>
@@ -37,7 +51,6 @@
 | <img src="docs/images/pi_motor_signal.jpg" width="400" alt="接收到馬達的訊號"> | <img src="docs/images/pi_camera_listening.jpg" width="400" alt="接收監聽訊號"> |
 | *終端機日誌：顯示成功接收 PC 端開門指令，準備驅動 GPIO* | *終端機日誌：建立 TCP 連線，持續推播影像並監聽回傳訊號* |
 
-*(註：請將上述圖片替換為實際拍攝的檔案，並放於 `docs/images/` 目錄下)*
 
 ---
 
@@ -53,13 +66,49 @@
 
 ---
 
-## ✨ 具備的功能
+## ✨ 系統核心功能與技術優勢 (Core Features & Technical Advantages)
 
-*   🖐️ **創新「手勢喚醒」機制**：系統平時處於低耗能待機狀態。只需對鏡頭比出特定手勢（伸出一根手指），即可瞬間喚醒系統，兼顧環保與效能。
-*   🧠 **雙重 AI 高精度辨識**：首創 ArcFace 搭配 Facenet 的雙引擎架構，結合動態影像強化技術，打造極高準確率與零死角的安全防護。
-*   ☁️ **雲端守衛與即時監控**：整合 Supabase 雲端服務，陌生闖入者無所遁形，即時抓拍並上傳雲端。
-*   📶 **強韌的斷網離線機制**：內建 SQLite 本地快取，即使網路斷線也能確實記錄，網路恢復後自動於背景補傳，居家安全滴水不漏。
-*   🔄 **智慧白名單學習**：系統具備「自動學習」功能，能將高置信度的臉部資料自動存入白名單，讓日常開門體驗越來越順暢。
+### 🖐️ 電腦視覺低功耗喚醒機制
+> **Vision-Based Low-Power Wake-up Mechanism**
+
+* **運作機制**：系統常態維持極低能耗待機，透過輕量級手勢偵測模型，使用者僅需出示特定手勢（如單指特徵）即可觸發瞬時喚醒。
+* **系統優勢**：將運算資源由休眠狀態無縫切換至全域辨識模式，大幅提升整體邊緣設備的能源使用效益。
+
+---
+
+### 🧠 雙引擎深度學習人臉辨識
+> **Dual-Engine Deep Learning Facial Recognition**
+
+* **核心技術**：ArcFace + Facenet 雙軌驗證、CLAHE 動態影像強化。
+* **運作機制**：於特徵擷取前導入影像強化技術，克服背光與低照度環境干擾，再透過雙軌演算法進行特徵比對。
+* **系統優勢**：複合架構確保了極高的生物特徵比對精準度，建構出高容錯率的安全防護網。
+
+---
+
+### ☁️ 邊緣與雲端協同即時監控
+> **Edge-Cloud Collaborative Security Monitoring**
+
+* **核心技術**：Supabase 雲端基礎設施。
+* **運作機制**：當系統偵測並攔截非授權之人臉特徵（異常闖入者）時，將立即觸發邊緣端影像擷取。
+* **系統優勢**：將未授權事件及影像紀錄即時推播至雲端資料庫，建立嚴密的存取稽核機制，實現零時差遠端監控。
+
+---
+
+### 📶 高強健性非同步容錯傳輸
+> **Robust Asynchronous Fault-Tolerant Transmission**
+
+* **核心技術**：SQLite 本地快取層 (Local Cache Layer)、背景非同步執行緒。
+* **運作機制**：遭遇網路連線中斷時，存取日誌與抓拍檔案將進行本地安全落地；待網路拓樸恢復，系統即自動進行非同步資料補傳。
+* **系統優勢**：有效克服實務物聯網場域中潛在的網路波動，確保所有稽核紀錄零遺漏。
+
+---
+
+### 🔄 自適應白名單特徵擴充
+> **Adaptive Whitelist Feature Expansion Algorithm**
+
+* **核心技術**：持續性學習 (Continuous Learning)。
+* **運作機制**：針對日常高置信度（High Confidence）的辨識結果進行特徵萃取，並動態將其擴充至本地授權白名單資料庫中。
+* **系統優勢**：系統能隨著時間推移與日常使用，穩步優化辨識演算法之效率與整體使用者體驗。
 
 ---
 
@@ -69,16 +118,33 @@
 
 ### 📡 終端設備端 (Raspberry Pi Zero 2 WH)
 部署於門邊，作為系統的「眼睛與手」。
-*   **影像擷取**：透過攝影機捕捉即時影像。
-*   **低延遲傳輸**：利用 TCP 協定將影像串流至室內運算中心。
-*   **實體控制**：接收驗證通過指令，驅動步進馬達完成「實體開門」動作。
+*   **影像擷取**：透過攝影機捕捉即時影像。
+*   **低延遲傳輸**：利用 TCP 協定將影像串流至室內運算中心。
+*   **實體控制**：接收驗證通過指令，驅動步進馬達完成「向後推開」的物理開門動作。
 
 ### 💻 核心運算端 (PC)
 部署於室內，作為系統的「大腦」。
-1.  **手勢喚醒**：偵測到特定手勢後啟動辨識流程。
-2.  **特徵鎖定與強化**：喚醒 MediaPipe 鎖定臉部特徵，並立刻進行影像強化 (CLAHE) 克服光線干擾。
-3.  **雙重辨識 (ArcFace + Facenet)**：先以 ArcFace 進行快速高精度的判定；若遇邊緣數值，無縫啟動 Facenet 進行二次確認。
+1.  **手勢喚醒**：偵測到特定手勢後啟動辨識流程。
+2.  **特徵鎖定與強化**：喚醒 MediaPipe 鎖定臉部特徵，並立刻進行影像強化 (CLAHE) 克服光線干擾。
+3.  **雙重辨識 (ArcFace + Facenet)**：先以 ArcFace 進行快速高精度的判定；若遇邊緣數值，無縫啟動 Facenet 進行二次確認。
 
+
+## 📂 專案目錄結構 (Project Structure)
+
+```text
+📦 Smart-Face-Lock
+ ┣ 📂 pc_node/                 # 電腦端：核心運算與 AI 辨識
+ ┃ ┣ 📂 owners/                # 存放白名單人臉照片 (需自行建立)
+ ┃ ┣ 📂 intruders/             # 存放被攔截的陌生人抓拍 (自動生成)
+ ┃ ┣ 📜 pc_gesture.py          # 電腦端主程式 (手勢喚醒 + 人臉辨識)
+ ┃ ┗ 📜 requirements.txt       # PC 端相依套件清單
+ ┣ 📂 pi_node/                 # 樹莓派端：邊緣終端與馬達控制
+ ┃ ┣ 📜 pi_motor_server.py     # 接收開門指令與馬達驅動
+ ┃ ┗ 📜 pi_stream_client.py    # 影像擷取與 TCP 串流推播
+ ┣ 📂 AWS/                     # 部署腳本與自動化工具
+ ┣ 📜 .env.example             # 環境變數範例檔
+ ┗ 📜 README.md
+```
 ---
 
 ## 🛡️ 安全防護與雲端整合 (Security & Cloud)
@@ -93,6 +159,45 @@
 
 ---
 
+## ⚙️ 環境與硬體準備 (Environment & Hardware Setup)
+
+### 【PC 端】核心大腦
+* **網路設定**：預設 IP 為 `192.168.0.148`，需與樹莓派處於同一個區域網路。
+* **軟體依賴**：需確保安裝專案所需的 Python 套件，包含 OpenCV、mediapipe、deepface 與 supabase 等。
+* **環境建置**：請確認雲端 Supabase 專案環境與金鑰已設定完成。
+* **權限目錄**：需在專案內建立 `owners/` 資料夾，並放置可通行者的清晰正臉照片作為白名單。
+
+### 【樹莓派端】眼睛與手
+* **網路設定**：預設 IP 為 `192.168.0.192`。
+* **硬體連接**：WebCam 需正確接上樹莓派的 USB 埠。
+* **機構控制**：步進馬達（含 ULN2003 驅動板）的腳位需連接至 GPIO 17, 18, 27, 22。系統設計為收到指令後，馬達會**向後推開門片**。
+
+---
+
+## 🚀 系統部署與啟動
+
+### 步驟 1：同步程式碼至邊緣端
+若 PC 端有修改樹莓派腳本，進入 `AWS/` 資料夾執行 `upload_all_to_pi.bat`，系統會透過 SCP 自動上傳檔案。接著執行 `ssh_to_pi.bat` 登入樹莓派終端機。
+
+### 步驟 2：依序啟動系統 
+為確保 TCP Socket 通訊正常，請嚴格遵守以下順序：
+
+| 順序 | 執行設備 | 終端機指令 | 狀態說明 |
+| :---: | :--- | :--- | :--- |
+| **1** | 🍓 樹莓派 | `python pi_motor_server.py` | 開啟 Port `65432`，等待接收 PC 端的開門指令 |
+| **2** | 💻 PC 端 | `python pc_gesture.py` | 開啟 Port `65434` 等待影像，並主動連線至樹莓派控制馬達 |
+| **3** | 🍓 樹莓派 | `python pi_stream_client.py` | *(開啟第二個終端機)* 啟動相機並將影像串流推播至 PC 端 |
+
+---
+
+## 🛠️ 維護與測試 (Maintenance & Testing)
+
+* **單獨測試實體門鎖**：SSH 登入樹莓派，執行 `python test_motor.py`，觀察馬達是否正常將門往後推開。
+* **新增/移除權限**：只需在 PC 端的 `owners/` 資料夾內新增或刪除臉孔照片。再次喚醒系統時，權限即會更新。
+* **查看闖入紀錄**：前往 PC 端 `intruders/` 資料夾，即可檢視所有未通過驗證（被拒絕開門）的闖入者擷圖。
+
+---
+
 ## 📦 物料清單 (BOM)
 
 | 零件名稱 (Component) | 規格/型號 | 數量 | 備註說明 |
@@ -100,7 +205,7 @@
 | **運算主機 (PC)** | 具備獨立顯卡佳 | 1 | 負責執行 AI 雙重辨識與核心運算 |
 | **邊緣運算板** | Raspberry Pi Zero 2 WH | 1 | 輕量化終端，負責影像串流與馬達控制 |
 | **攝影鏡頭** | 兼容之 WebCam 或 Pi Camera | 1 | 安裝於門外，擷取人臉與手勢 |
-| **步進馬達** | 5V 步進馬達 | 1 | 負責將門片往後推開的物理作動 |
+| **步進馬達** | 5V 步進馬達 | 1 | 負責將門片向後推開的物理作動 |
 | **馬達驅動板** | ULN2003 | 1 | 接收 Zero 2 WH GPIO 訊號以驅動馬達 |
 | **電源供應器** | Pi Zero 2 W 專屬電源 | 1 | 提供邊緣運算板穩定供電 |
 | **儲存與燒錄** | SD卡 + SD卡讀卡機 | 1 套 | 用於燒錄樹莓派 OS 與存放終端程式碼 |
@@ -112,6 +217,13 @@
 
 ## 👥 團隊成員 (Team Members)
 
-* **[您的名字/姓名 1]** - *專案發起、架構設計、AI 辨識模型整合* - [GitHub](https://github.com/yourusername)
-* **[姓名 2]** - *樹莓派邊緣運算、TCP 影像串流與馬達控制* - [GitHub](https://github.com/member2)
-* **[姓名 3]** - *Supabase 雲端資料庫與 SQLite 離線快取串接* - [GitHub](https://github.com/member3)
+<div align="center">
+
+| 名字 (Name) | 學號 (Student ID) |
+| :---: | :---: |
+| [姓名 1] | [學號 1] |
+| [姓名 2] | [學號 2] |
+| [姓名 3] | [學號 3] |
+| [姓名 4] | [學號 4] |
+
+</div>
