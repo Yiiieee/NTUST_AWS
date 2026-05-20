@@ -97,16 +97,17 @@
 ## 🗺️ 系統圖解 (System Diagrams)
 
 ### 1. 系統完整流程圖 (System Flowchart)
-![系統完整流程圖](https://github.com/user-attachments/assets/79b8c8f4-c69f-437c-8303-bba2c38018c1)
+![系統完整流程圖](https://github.com/user-attachments/assets/dc2e7bb6-07af-4c1f-b153-2d094064efb9)
 > *說明：展示從手勢喚醒、影像強化、ArcFace + Facenet 雙重 AI 辨識，到最終實體作動與 Supabase 雲端上傳的完整生命週期。*
 
 ### 2. 硬體接線圖 (Wiring Diagram)
-![樹梅派與馬達的接線圖](https://github.com/user-attachments/assets/bb6aed93-86ad-45ff-b776-3aa623d10df4)
+![樹梅派與馬達的接線圖](https://github.com/user-attachments/assets/267edc6a-3bf9-47bf-87c8-c79290d8395a)
 > *說明：Raspberry Pi Zero 2 WH 與 ULN2003 步進馬達驅動板的詳細 GPIO 接線配置。*
 
 ### 3. Zero 2w 腳位圖
 ![樹梅派與馬達的接線圖](https://github.com/user-attachments/assets/946e4078-6b62-4b7a-97ff-bac6b208822a)
 > *說明：Raspberry Pi Zero 2 WH 的針腳位置參考。*
+
 
 ---
 
