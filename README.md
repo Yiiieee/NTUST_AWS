@@ -115,7 +115,7 @@ The operation results are visually compared between the **PC Core Computing Node
 ## ✨ Core Features & Technical Advantages
 
 ### 🖐️ Vision-Based Low-Power Wake-up Mechanism
-* **Operational Mechanism**: The system normally maintains a very low-power standby state. Through a lightweight gesture detection model, the user only needs to show a specific gesture (such as a single-finger feature) to trigger an instant wake-up.
+* **Operational Mechanism**: The system normally maintains a very low-power standby state. Through a lightweight gesture detection model, the user only needs to show a specific gesture ( such as a single-finger feature ) to trigger an instant wake-up.
 * **System Advantage**: Seamlessly switches computing resources from sleep state to full-scale recognition mode, significantly improving the overall energy efficiency of the edge device.
 
 ---
@@ -129,7 +129,7 @@ The operation results are visually compared between the **PC Core Computing Node
 
 ### ☁️ Edge-Cloud Collaborative Security Monitoring
 * **Core Technology**: Supabase cloud infrastructure.
-* **Operational Mechanism**: When the system detects and intercepts unauthorized facial features (abnormal intruders), it will immediately trigger image capture on the edge node.
+* **Operational Mechanism**: When the system detects and intercepts unauthorized facial features ( abnormal intruders ), it will immediately trigger image capture on the edge node.
 * **System Advantage**: Real-time push of unauthorized events and image records to the cloud database establishes a strict access audit mechanism, achieving zero-day remote monitoring.
 
 ---
@@ -152,17 +152,17 @@ The operation results are visually compared between the **PC Core Computing Node
 
 **Client-Server Architecture**, separating lightweight control from heavy computation:
 
-### 📡 Edge Node (Raspberry Pi Zero 2 WH)
-Deployed at the door, acting as the system's "eyes and hands".
+### 📡 Edge Node 
+Deployed at the door
 *   **Image Capture**: Captures real-time video through the camera.
 *   **Low-Latency Transmission**: Uses TCP protocol to stream video to the indoor computing center.
 *   **Physical Control**: Receives verification pass commands and drives the stepper motor to complete the physical door-opening action of "pushing back".
 
-### 💻 Core Computing Node (PC)
-Deployed indoors, acting as the system's "brain".
+### 💻 Core Computing Node 
+Deployed indoors
 1.  **Gesture Wake-up**: Initiates the recognition process upon detecting a specific gesture.
 2.  **Feature Locking & Enhancement**: Wakes up MediaPipe to lock facial features and immediately performs image enhancement (CLAHE) to overcome light interference.
-3.  **Dual Recognition (ArcFace + Facenet)**: First uses ArcFace for fast, high-precision determination; if edge values are encountered, seamlessly activates Facenet for secondary confirmation.
+3.  **Dual Recognition ( ArcFace + Facenet )**: First uses ArcFace for fast, high-precision determination; if edge values are encountered, seamlessly activates Facenet for secondary confirmation.
 
 
 ## 📂 Project Structure
@@ -170,9 +170,9 @@ Deployed indoors, acting as the system's "brain".
 ```text
 📦 Smart-Face-Lock
  ┣ 📂 pc_node/                 # PC Node: Core computing and AI recognition
- ┃ ┣ 📂 owners/                # Stores whitelist face photos (needs to be created manually)
- ┃ ┣ 📂 intruders/             # Stores captured photos of intercepted strangers (auto-generated)
- ┃ ┣ 📜 pc_gesture.py          # PC main program (Gesture wake-up + Face recognition)
+ ┃ ┣ 📂 owners/                # Stores whitelist face photos ( needs to be created manually )
+ ┃ ┣ 📂 intruders/             # Stores captured photos of intercepted strangers ( auto-generated )
+ ┃ ┣ 📜 pc_gesture.py          # PC main program ( Gesture wake-up + Face recognition )
  ┃ ┗ 📜 requirements.txt       # PC node dependency list
  ┣ 📂 pi_node/                 # Raspberry Pi Node: Edge terminal and motor control
  ┃ ┣ 📜 pi_motor_server.py     # Receives door open commands and motor driver
@@ -198,7 +198,7 @@ Security Mechanisms:
 ## ⚙️ Environment & Hardware Setup
 
 ### 【PC Node】 Core Brain
-* **Network Settings**: Default IP is `192.168.0.148`, must be on the same local area network (LAN) as the Raspberry Pi.
+* **Network Settings**: Default IP is `192.168.0.148`, must be on the same local area network ( LAN ) as the Raspberry Pi.
 * **Software Dependencies**: Ensure required Python packages are installed, including OpenCV, mediapipe, deepface, and supabase.
 * **Environment Setup**: Confirm that the cloud Supabase project environment and keys are configured.
 * **Permission Directory**: Need to create an `owners/` folder in the project and place clear frontal face photos of authorized personnel as the whitelist.
@@ -206,7 +206,7 @@ Security Mechanisms:
 ### 【Raspberry Pi Node】 Eyes and Hands
 * **Network Settings**: Default IP is `192.168.0.192`.
 * **Hardware Connection**: WebCam must be properly connected to the Pi's USB port.
-* **Mechanism Control**: The stepper motor (including ULN2003 driver board) pins need to be connected to GPIO 17, 18, 27, 22. The system is designed so the motor **pushes the door open** upon receiving the command.
+* **Mechanism Control**: The stepper motor ( including ULN2003 driver board ) pins need to be connected to GPIO 17, 18, 27, 22. The system is designed so the motor **pushes the door open** upon receiving the command.
 
 ---
 
@@ -222,7 +222,7 @@ To ensure normal TCP Socket communication, follow this sequence:
 | :---: | :--- | :--- | :--- |
 | **1** | 🍓 Raspberry Pi | `python pi_motor_server.py` | Opens Port `65432`, waiting to receive door-opening commands from the PC |
 | **2** | 💻 PC Node | `python pc_gesture.py` | Opens Port `65434` waiting for video, and actively connects to the Pi to control the motor |
-| **3** | 🍓 Raspberry Pi | `python pi_stream_client.py` | *(Open second terminal)* Starts the camera and streams the video to the PC node |
+| **3** | 🍓 Raspberry Pi | `python pi_stream_client.py` | *( Open second terminal )* Starts the camera and streams the video to the PC node |
 
 ---
 
@@ -230,11 +230,11 @@ To ensure normal TCP Socket communication, follow this sequence:
 
 * **Standalone Physical Door Lock Test**: SSH into the Raspberry Pi, execute `python test_motor.py`, and observe if the motor properly pushes the door backward.
 * **Add/Remove Permissions**: Simply add or delete face photos in the `owners/` folder on the PC node. The permissions will update the next time the system wakes up.
-* **Check Intruder Logs**: Go to the `intruders/` folder on the PC node to view captured screenshots of all intruders who failed verification (refused entry).
+* **Check Intruder Logs**: Go to the `intruders/` folder on the PC node to view captured screenshots of all intruders who failed verification ( refused entry ).
 
 ---
 
-## 📦 Bill of Materials (BOM)
+## 📦 Bill of Materials 
 
 | Component Name | Specification/Model | Notes |
 | :--- | :--- | :--- |
@@ -244,7 +244,7 @@ To ensure normal TCP Socket communication, follow this sequence:
 | **Motor Driver Board** | ULN2003 | Receives Zero 2 WH GPIO signals to drive the motor |
 | **Power Supply** | Pi Zero 2 W Dedicated Power Supply | Provides stable power to the edge computing board |
 | **Storage & Flashing** | SD Card + SD Card Reader | Used to flash Raspberry Pi OS and store terminal code |
-| **Adapter Accessories** | Micro USB Adapter | Used for Zero 2 WH to connect peripherals (like camera) |
+| **Adapter Accessories** | Micro USB Adapter | Used for Zero 2 WH to connect peripherals ( like camera ) |
 | **Adapter Accessories** | Micro HDMI Adapter | Used for Zero 2 WH to connect a monitor for initial setup |
 | **Peripherals** | Jumper Wires (Dupont) | Used to connect GPIO pins and the driver board |
 
