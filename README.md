@@ -54,13 +54,17 @@
 
 ### 💻 1. PC Node
 
+
 | 🚪 實體開門作動  | 📡 即時影像監控串流 |
 | :---: | :---: |
-| <img src="docs/images/motor_action.gif" width="400" alt="馬達轉動畫面"> | <img src="docs/images/pc_camera_stream.jpg" width="400" alt="PC端顯示樹梅派的相機畫面"> |
+| <img src="docs/images/motor_action.gif" width="400" alt="馬達轉動畫面"> | <img src="https://github.com/user-attachments/assets/9c8f5fee-e40e-4ea5-92ef-6c38fdc23ed2" width="400" alt="PC端顯示樹梅派的相機畫面"> |
 | *驗證成功後，發送指令驅動馬達將推開* | *PC 端即時接收並顯示來自門外樹莓派的 TCP 低延遲影像* |
 | ✅ 辨識成功  | ❌ 異常攔截 |
-| <img src="docs/images/auth_success.jpg" width="400" alt="成功辨別是主人"> | <img src="docs/images/auth_failed.jpg" width="400" alt="成功辨別非主人"> |
+| <img src="https://github.com/user-attachments/assets/80b85d77-0145-4645-b077-9794b14251f1" width="400" alt="成功辨別是主人"> | <img src="https://github.com/user-attachments/assets/1c32897d-4bc3-4983-9333-9518247a86f4" width="400" alt="成功辨別非主人"> |
 | *成功辨識臉部特徵，顯示高置信度並亮起綠燈觸發開門* | *偵測到非白名單人臉，拒絕開門並觸發現場抓拍與雲端上傳* |
+
+
+
 
 ### 📡 2. 樹莓派終端設備 (Raspberry Pi Node)
 
@@ -73,24 +77,35 @@
 
 | 🔌 接收馬達驅動訊號 | 👁️ 攝影機 TCP 連線監聽狀態 |
 | :---: | :---: |
-| <img src="docs/images/pi_motor_signal.jpg" width="400" alt="接收到馬達的訊號"> | <img src="docs/images/pi_camera_listening.jpg" width="400" alt="接收監聽訊號"> |
+| <img src="https://github.com/user-attachments/assets/126b227b-0d46-4c87-b6c6-c0394cf4d281" width="400" alt="接收到馬達的訊號"> | <img src="https://github.com/user-attachments/assets/8bf7d43e-f972-43d8-9358-dd8468756bba" width="400" alt="接收監聽訊號"> |
 | *終端機日誌：顯示成功接收 PC 端開門指令，準備驅動 GPIO* | *終端機日誌：建立 TCP 連線，持續推播影像並監聽回傳訊號* |
 
+---
+
+### ☁️ 3. Supabase 雲端資料庫紀錄 (Supabase Cloud Storage & Database)
+
+**📊 闖入者日誌與影像紀錄**  
+<br>
+
+| 📝 闖入者 Log 訊息紀錄 | 📸 闖入者影像照片 |
+| :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/0abd451e-686f-4d92-b985-6efd1f8c2240" width="400" alt="Supabase Log 紀錄訊息"> | <img src="https://github.com/user-attachments/assets/e38e38ea-110d-40ca-bb12-a2bdaba77342" width="400" alt="Supabase 闖入者照片"> |
+| *Supabase Database：詳細記錄闖入事件發生的時間點與相關狀態* | *Supabase Storage：自動捕捉並上傳至雲端的闖入者清晰截圖* |
 
 ---
 
 ## 🗺️ 系統圖解 (System Diagrams)
 
 ### 1. 系統完整流程圖 (System Flowchart)
-![系統完整流程圖](docs/images/system_flowchart.png)
+![系統完整流程圖](https://github.com/user-attachments/assets/79b8c8f4-c69f-437c-8303-bba2c38018c1)
 > *說明：展示從手勢喚醒、影像強化、ArcFace + Facenet 雙重 AI 辨識，到最終實體作動與 Supabase 雲端上傳的完整生命週期。*
 
 ### 2. 硬體接線圖 (Wiring Diagram)
-![樹梅派與馬達的接線圖](docs/images/wiring_diagram.png)
+![樹梅派與馬達的接線圖](https://github.com/user-attachments/assets/bb6aed93-86ad-45ff-b776-3aa623d10df4)
 > *說明：Raspberry Pi Zero 2 WH 與 ULN2003 步進馬達驅動板的詳細 GPIO 接線配置，負責實現門片向後推開的物理機構設計。*
 
 ### 3. Zero 2w 腳位圖
-![樹梅派與馬達的接線圖](docs/images/wiring_diagram.png)
+![樹梅派與馬達的接線圖](https://github.com/user-attachments/assets/946e4078-6b62-4b7a-97ff-bac6b208822a)
 > *說明：Raspberry Pi Zero 2 WH 的針腳位置參考。*
 
 ---
