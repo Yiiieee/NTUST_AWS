@@ -16,7 +16,7 @@
 <details>
 <summary><b>📖 Click to expand Table of Contents</b></summary>
 
-- [🛠️ Technical Architecture ](#️-technical-architecture--core-highlights)
+- [🛠️ Technical Architecture](#️-technical-architecture)
   - [💡 Core Highlights](#-core-highlights)
   - [📊 Architecture Summary](#-architecture-summary)
 - [🎥 Demo & Showcase](#-demo--showcase)
@@ -27,15 +27,14 @@
   - [1. System Flowchart](#1-system-flowchart)
   - [2. Wiring Diagram](#2-wiring-diagram)
   - [3. Zero 2W Pinout Diagram](#3-zero-2w-pinout-diagram)
-- [🔄 Adaptive Whitelist Feature Expansion](#-adaptive-whitelist-feature-expansion)
 - [🏗️ System Architecture](#️-system-architecture)
   - [📡 Edge Node](#-edge-node)
   - [💻 Core Computing Node](#-core-computing-node)
 - [📂 Project Structure](#-project-structure)
 - [🛡️ Security & Cloud Integration](#️-security--cloud-integration)
 - [⚙️ Environment & Hardware Setup](#️-environment--hardware-setup)
-  - [【PC Node】 Core Brain](#pc-node-core-brain)
-  - [【Raspberry Pi Node】 Eyes and Hands](#raspberry-pi-node-eyes-and-hands)
+  - [【PC Node】](#pc-node)
+  - [【Raspberry Pi Node】](#raspberry-pi-node)
 - [🚀 System Deployment & Startup](#-system-deployment--startup)
   - [Step 1: Sync Code to Edge Node](#step-1-sync-code-to-edge-node)
   - [Step 2: Sequential System Startup](#step-2-sequential-system-startup)
@@ -78,6 +77,13 @@ This system for 115_NTUST Cloud and Fog Compute Team4
 > - **Core Tech:** SQLite local cache layer, background asynchronous threads.
 > - **Mechanism:** During network disruptions, access logs and captured media are safely cached locally. Once connectivity is restored, the system automatically executes asynchronous data retransmission in the background.
 > - **Advantage:** Effectively navigates network fluctuations common in IoT environments, guaranteeing 100% data integrity and zero loss of audit records.
+>
+> ---
+> 
+> ### 🔄 Adaptive Whitelist Feature Expansion
+> - **Core Tech:** Continuous Learning
+> - **Mechanism:** Extracts features from daily high-confidence recognition results and dynamically expands them into the local authorized whitelist database.
+> - **Advantage:** The system can steadily optimize the efficiency of the recognition algorithm and overall user experience over time and daily use.
 
 ---
 
@@ -89,6 +95,7 @@ This system for 115_NTUST Cloud and Fog Compute Team4
 | **Facial Recognition** | ArcFace + FaceNet + CLAHE | Overcomes extreme lighting, high accuracy | Dual-track verification, high fault tolerance |
 | **Edge-Cloud Sync** | Supabase Cloud | Sub-second anomaly alerts & event tracking | Zero-latency monitoring, security auditing |
 | **Fault-Tolerant Tx** | SQLite + Async Threads | Auto-resume upon reconnection, prevents data loss | 100% data integrity |
+| **Adaptive Whitelist** | Continuous Learning | Optimizes recognition efficiency over time | Dynamic expansion, UX improvement |
 
 ## 🎥 Demo & Showcase
 
@@ -142,7 +149,7 @@ The operation results are visually compared between the **PC Core Computing Node
 ![System Flowchart](https://github.com/user-attachments/assets/dc2e7bb6-07af-4c1f-b153-2d094064efb9)
 > *Description: Demonstrates the complete life cycle from gesture wake-up, image enhancement, ArcFace + Facenet dual AI recognition, to final physical action and Supabase cloud upload.*
 
-### 2. Wiring Diagram
+### 2. Wiring Diagram 
 ![Wiring Diagram between Raspberry Pi and Motor](https://github.com/user-attachments/assets/267edc6a-3bf9-47bf-87c8-c79290d8395a)
 > *Description: Detailed GPIO wiring configuration for Raspberry Pi Zero 2 WH and ULN2003 stepper motor driver board.*
 
@@ -150,15 +157,6 @@ The operation results are visually compared between the **PC Core Computing Node
 ![Raspberry Pi Zero 2W Pinout](https://github.com/user-attachments/assets/946e4078-6b62-4b7a-97ff-bac6b208822a)
 > *Description: Pinout reference for Raspberry Pi Zero 2 WH.*
 
-
----
-
-
-
-### 🔄 Adaptive Whitelist Feature Expansion
-* **Core Technology**: Continuous Learning.
-* **Operational Mechanism**: Extracts features from daily high-confidence recognition results and dynamically expands them into the local authorized whitelist database.
-* **System Advantage**: The system can steadily optimize the efficiency of the recognition algorithm and overall user experience over time and daily use.
 
 ---
 
