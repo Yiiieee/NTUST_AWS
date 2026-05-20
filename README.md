@@ -47,7 +47,7 @@
 
 ## 🛠️ Technical Architecture 
 
-This system integrates edge computing, dual-track deep learning recognition, and edge-cloud collaborative mechanisms to build a smart IoT security defense system with high energy efficiency, exceptional precision, and robust fault tolerance.
+This system for 115_NTUST Cloud and Fog Compute Team4 
 
 ---
 
