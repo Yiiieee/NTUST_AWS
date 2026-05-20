@@ -16,7 +16,7 @@
 <details>
 <summary><b>📖 Click to expand Table of Contents</b></summary>
 
-- [🛠️ Technical Architecture & Core Highlights](#️-technical-architecture--core-highlights)
+- [🛠️ Technical Architecture ](#️-technical-architecture--core-highlights)
   - [💡 Core Highlights](#-core-highlights)
   - [📊 Architecture Summary](#-architecture-summary)
 - [🎥 Demo & Showcase](#-demo--showcase)
@@ -45,7 +45,7 @@
 
 </details>
 
-## 🛠️ Technical Architecture & Core Highlights
+## 🛠️ Technical Architecture 
 
 This system integrates edge computing, dual-track deep learning recognition, and edge-cloud collaborative mechanisms to build a smart IoT security defense system with high energy efficiency, exceptional precision, and robust fault tolerance.
 
