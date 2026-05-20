@@ -58,7 +58,7 @@
 | 🚪 實體開門作動  | 📡 即時影像監控串流 |
 | :---: | :---: |
 | <img src="docs/images/motor_action.gif" width="400" alt="馬達轉動畫面"> | <img src="https://github.com/user-attachments/assets/9c8f5fee-e40e-4ea5-92ef-6c38fdc23ed2" width="400" alt="PC端顯示樹梅派的相機畫面"> |
-| *驗證成功後，發送指令驅動馬達將推開* | *PC 端即時接收並顯示來自門外樹莓派的 TCP 低延遲影像* |
+| *驗證成功後，發送指令驅動馬達將推開* | *PC 端即時接收並顯示來自門外樹莓派的 TCP 影像* |
 | ✅ 辨識成功  | ❌ 異常攔截 |
 | <img src="https://github.com/user-attachments/assets/80b85d77-0145-4645-b077-9794b14251f1" width="400" alt="成功辨別是主人"> | <img src="https://github.com/user-attachments/assets/1c32897d-4bc3-4983-9333-9518247a86f4" width="400" alt="成功辨別非主人"> |
 | *成功辨識臉部特徵，顯示高置信度並亮起綠燈觸發開門* | *偵測到非白名單人臉，拒絕開門並觸發現場抓拍與雲端上傳* |
@@ -71,7 +71,7 @@
 **🍓 樹莓派硬體與推門機構整體外觀**  
 <br>
 <img src="docs/images/pi_hardware_setup.jpg" width="800" alt="樹梅派整體外觀">  
-> *Pi Zero 2 WH、攝影機、步進馬達與 ULN2003 驅動板的實體組裝外觀（包含向後推開的門片機構）*
+> *Pi Zero 2 WH、攝影機、步進馬達與 ULN2003 驅動板的實體組裝外觀 ）*
 
 <br>
 
@@ -90,7 +90,7 @@
 | 📝 闖入者 Log 訊息紀錄 | 📸 闖入者影像照片 |
 | :---: | :---: |
 | <img src="https://github.com/user-attachments/assets/0abd451e-686f-4d92-b985-6efd1f8c2240" width="400" alt="Supabase Log 紀錄訊息"> | <img src="https://github.com/user-attachments/assets/e38e38ea-110d-40ca-bb12-a2bdaba77342" width="400" alt="Supabase 闖入者照片"> |
-| *Supabase Database：詳細記錄闖入事件發生的時間點與相關狀態* | *Supabase Storage：自動捕捉並上傳至雲端的闖入者清晰截圖* |
+| *Supabase Database：詳細記錄闖入事件發生的時間點與相關狀態* | *Supabase Storage：自動捕捉並上傳至雲端的闖入者截圖* |
 
 ---
 
@@ -102,7 +102,7 @@
 
 ### 2. 硬體接線圖 (Wiring Diagram)
 ![樹梅派與馬達的接線圖](https://github.com/user-attachments/assets/bb6aed93-86ad-45ff-b776-3aa623d10df4)
-> *說明：Raspberry Pi Zero 2 WH 與 ULN2003 步進馬達驅動板的詳細 GPIO 接線配置，負責實現門片向後推開的物理機構設計。*
+> *說明：Raspberry Pi Zero 2 WH 與 ULN2003 步進馬達驅動板的詳細 GPIO 接線配置。*
 
 ### 3. Zero 2w 腳位圖
 ![樹梅派與馬達的接線圖](https://github.com/user-attachments/assets/946e4078-6b62-4b7a-97ff-bac6b208822a)
@@ -197,7 +197,7 @@
 
 | 防護機制 | 運作說明 |
 | :--- | :--- |
-| **🚨 陌生人攔截與抓拍** | 辨識到非白名單臉孔（闖入者）時，系統將立即拒絕開門，並自動拍下高清現場照片。 |
+| **🚨 陌生人攔截抓拍** | 辨識到非白名單臉孔時，系統將立即拒絕開門，並自動拍下現場照片。 |
 | **☁️ 雲端即時上傳** | 透過整合 **Supabase** 服務，將影像與存取日誌即時推播至雲端，方便遠端監控。 |
 | **💾 離線快取機制** | 因應真實場景的網路不穩，內建 **SQLite** 進行本地端備份。斷網時安全記錄不遺失，網路恢復即自動補傳。 |
 
@@ -214,7 +214,7 @@
 ### 【樹莓派端】眼睛與手
 * **網路設定**：預設 IP 為 `192.168.0.192`。
 * **硬體連接**：WebCam 需正確接上樹莓派的 USB 埠。
-* **機構控制**：步進馬達（含 ULN2003 驅動板）的腳位需連接至 GPIO 17, 18, 27, 22。系統設計為收到指令後，馬達會**向後推開門片**。
+* **機構控制**：步進馬達（含 ULN2003 驅動板）的腳位需連接至 GPIO 17, 18, 27, 22。系統設計為收到指令後，馬達會**推開門片**。
 
 ---
 
@@ -224,7 +224,7 @@
 若 PC 端有修改樹莓派腳本，進入 `AWS/` 資料夾執行 `upload_all_to_pi.bat`，系統會透過 SCP 自動上傳檔案。接著執行 `ssh_to_pi.bat` 登入樹莓派終端機。
 
 ### 步驟 2：依序啟動系統 
-為確保 TCP Socket 通訊正常，請嚴格遵守以下順序：
+為確保 TCP Socket 通訊正常，遵守以下順序：
 
 | 順序 | 執行設備 | 終端機指令 | 狀態說明 |
 | :---: | :--- | :--- | :--- |
@@ -246,7 +246,6 @@
 
 | 零件名稱 (Component) | 規格/型號 | 備註說明 |
 | :--- | :--- | :--- |
-| **運算主機 (PC)** | 具備獨立顯卡佳 | 負責執行 AI 雙重辨識與核心運算 |
 | **邊緣運算板** | Raspberry Pi Zero 2 WH | 輕量化終端，負責影像串流與馬達控制 |
 | **攝影鏡頭** | 兼容之 WebCam 或 Pi Camera | 安裝於門外，擷取人臉與手勢 |
 | **步進馬達** | 5V 步進馬達 | 負責將門片向後推開的物理作動 |
@@ -261,13 +260,11 @@
 
 ## 👥 團隊成員 (Team Members)
 
-<div align="center">
 
 | 名字 (Name) | 學號 (Student ID) |
 | :---: | :---: |
-| [姓名 1] | [學號 1] |
-| [姓名 2] | [學號 2] |
-| [姓名 3] | [學號 3] |
-| [姓名 4] | [學號 4] |
+| 羅奕程 | M11451021 |
+| 王建傑 | M11451009 |
+| 吳宗韓 | M11451019 |
+| Peeranut Wiwarrawornchai | M11451801 |
 
-</div>
