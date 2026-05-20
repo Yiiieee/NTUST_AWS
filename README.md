@@ -16,6 +16,12 @@
 <details>
 <summary><b>📖 Click to expand Table of Contents</b></summary>
 
+- [✨ Core Features & Technical Advantages](#-core-features--technical-advantages)
+  - [🖐️ Vision-Based Low-Power Wake-up Mechanism](#️-vision-based-low-power-wake-up-mechanism)
+  - [🧠 Dual-Engine Deep Learning Facial Recognition](#-dual-engine-deep-learning-facial-recognition)
+  - [☁️ Edge-Cloud Collaborative Security Monitoring](#️-edge-cloud-collaborative-security-monitoring)
+  - [📶 Robust Asynchronous Fault-Tolerant Transmission](#-robust-asynchronous-fault-tolerant-transmission)
+  - [🔄 Adaptive Whitelist Feature Expansion](#-adaptive-whitelist-feature-expansion)
 - [🎥 Demo & Showcase](#-demo--showcase)
   - [💻 1. PC Node](#-1-pc-node)
   - [📡 2. Raspberry Pi Node](#-2-raspberry-pi-node)
@@ -24,12 +30,6 @@
   - [1. System Flowchart](#1-system-flowchart)
   - [2. Wiring Diagram](#2-wiring-diagram)
   - [3. Zero 2W Pinout Diagram](#3-zero-2w-pinout-diagram)
-- [✨ Core Features & Technical Advantages](#-core-features--technical-advantages)
-  - [🖐️ Vision-Based Low-Power Wake-up Mechanism](#️-vision-based-low-power-wake-up-mechanism)
-  - [🧠 Dual-Engine Deep Learning Facial Recognition](#-dual-engine-deep-learning-facial-recognition)
-  - [☁️ Edge-Cloud Collaborative Security Monitoring](#️-edge-cloud-collaborative-security-monitoring)
-  - [📶 Robust Asynchronous Fault-Tolerant Transmission](#-robust-asynchronous-fault-tolerant-transmission)
-  - [🔄 Adaptive Whitelist Feature Expansion](#-adaptive-whitelist-feature-expansion)
 - [🏗️ System Architecture](#️-system-architecture)
   - [📡 Edge Node (Raspberry Pi Zero 2 WH)](#-edge-node-raspberry-pi-zero-2-wh)
   - [💻 Core Computing Node (PC)](#-core-computing-node-pc)
@@ -46,6 +46,34 @@
 - [👥 Team Members](#-team-members)
 
 </details>
+
+## ✨ Core Features & Technical Advantages
+
+### 🖐️ Vision-Based Low-Power Wake-up Mechanism
+* **Operational Mechanism**: The system normally maintains a very low-power standby state. Through a lightweight gesture detection model, the user only needs to show a specific gesture ( such as a single-finger feature ) to trigger an instant wake-up.
+* **System Advantage**: Seamlessly switches computing resources from sleep state to full-scale recognition mode, significantly improving the overall energy efficiency of the edge device.
+
+---
+
+### 🧠 Dual-Engine Deep Learning Facial Recognition
+* **Core Technology**: ArcFace + Facenet dual-track verification, CLAHE dynamic image enhancement.
+* **Operational Mechanism**: Introduces image enhancement technology before feature extraction to overcome backlight and low-light interference, then uses dual-track algorithms for feature matching.
+* **System Advantage**: The composite architecture ensures extremely high biometric matching accuracy, building a highly fault-tolerant security defense network.
+
+---
+
+### ☁️ Edge-Cloud Collaborative Security Monitoring
+* **Core Technology**: Supabase cloud infrastructure.
+* **Operational Mechanism**: When the system detects and intercepts unauthorized facial features ( abnormal intruders ), it will immediately trigger image capture on the edge node.
+* **System Advantage**: Real-time push of unauthorized events and image records to the cloud database establishes a strict access audit mechanism, achieving zero-day remote monitoring.
+
+---
+
+### 📶 Robust Asynchronous Fault-Tolerant Transmission
+* **Core Technology**: SQLite Local Cache Layer, background asynchronous threads.
+* **Operational Mechanism**: In the event of a network connection interruption, access logs and captured files will be safely stored locally; once the network topology is restored, the system will automatically perform asynchronous data retransmission.
+* **System Advantage**: Effectively overcomes potential network fluctuations in practical IoT fields, ensuring zero omission of all audit records.
+
 
 ---
 
@@ -112,34 +140,7 @@ The operation results are visually compared between the **PC Core Computing Node
 
 ---
 
-## ✨ Core Features & Technical Advantages
 
-### 🖐️ Vision-Based Low-Power Wake-up Mechanism
-* **Operational Mechanism**: The system normally maintains a very low-power standby state. Through a lightweight gesture detection model, the user only needs to show a specific gesture ( such as a single-finger feature ) to trigger an instant wake-up.
-* **System Advantage**: Seamlessly switches computing resources from sleep state to full-scale recognition mode, significantly improving the overall energy efficiency of the edge device.
-
----
-
-### 🧠 Dual-Engine Deep Learning Facial Recognition
-* **Core Technology**: ArcFace + Facenet dual-track verification, CLAHE dynamic image enhancement.
-* **Operational Mechanism**: Introduces image enhancement technology before feature extraction to overcome backlight and low-light interference, then uses dual-track algorithms for feature matching.
-* **System Advantage**: The composite architecture ensures extremely high biometric matching accuracy, building a highly fault-tolerant security defense network.
-
----
-
-### ☁️ Edge-Cloud Collaborative Security Monitoring
-* **Core Technology**: Supabase cloud infrastructure.
-* **Operational Mechanism**: When the system detects and intercepts unauthorized facial features ( abnormal intruders ), it will immediately trigger image capture on the edge node.
-* **System Advantage**: Real-time push of unauthorized events and image records to the cloud database establishes a strict access audit mechanism, achieving zero-day remote monitoring.
-
----
-
-### 📶 Robust Asynchronous Fault-Tolerant Transmission
-* **Core Technology**: SQLite Local Cache Layer, background asynchronous threads.
-* **Operational Mechanism**: In the event of a network connection interruption, access logs and captured files will be safely stored locally; once the network topology is restored, the system will automatically perform asynchronous data retransmission.
-* **System Advantage**: Effectively overcomes potential network fluctuations in practical IoT fields, ensuring zero omission of all audit records.
-
----
 
 ### 🔄 Adaptive Whitelist Feature Expansion
 * **Core Technology**: Continuous Learning.
