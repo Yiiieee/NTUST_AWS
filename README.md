@@ -130,8 +130,6 @@
 
 ---
 
-### 🇬🇧 英文版 (English Version)
-
 ### ☁️ 3. Supabase Cloud Storage & Database
 
 **📊 Unauthorized Access Logs and Image Repositories**  
