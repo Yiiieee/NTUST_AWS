@@ -211,13 +211,13 @@ Security Mechanisms:
 
 ## ⚙️ Environment & Hardware Setup
 
-### 【PC Node】 Core Brain
+### 【PC Node】 
 * **Network Settings**: Default IP is `192.168.0.148`, must be on the same local area network ( LAN ) as the Raspberry Pi.
 * **Software Dependencies**: Ensure required Python packages are installed, including OpenCV, mediapipe, deepface, and supabase.
 * **Environment Setup**: Confirm that the cloud Supabase project environment and keys are configured.
 * **Permission Directory**: Need to create an `owners/` folder in the project and place clear frontal face photos of authorized personnel as the whitelist.
 
-### 【Raspberry Pi Node】 Eyes and Hands
+### 【Raspberry Pi Node】
 * **Network Settings**: Default IP is `192.168.0.192`.
 * **Hardware Connection**: WebCam must be properly connected to the Pi's USB port.
 * **Mechanism Control**: The stepper motor ( including ULN2003 driver board ) pins need to be connected to GPIO 17, 18, 27, 22. The system is designed so the motor **pushes the door open** upon receiving the command.
