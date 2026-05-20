@@ -27,10 +27,10 @@
   - [1. System Flowchart](#1-system-flowchart)
   - [2. Wiring Diagram](#2-wiring-diagram)
   - [3. Zero 2W Pinout Diagram](#3-zero-2w-pinout-diagram)
+- [📂 Project Structure](#-project-structure)
 - [🏗️ System Architecture](#️-system-architecture)
   - [📡 Edge Node](#-edge-node)
   - [💻 Core Computing Node](#-core-computing-node)
-- [📂 Project Structure](#-project-structure)
 - [🛡️ Security & Cloud Integration](#️-security--cloud-integration)
 - [⚙️ Environment & Hardware Setup](#️-environment--hardware-setup)
   - [【PC Node】](#pc-node)
@@ -44,60 +44,59 @@
 
 </details>
 
-## 🛠️ Technical Architecture 
+## 🛠️ Technical Architecture
 
-This system for 115_NTUST Cloud and Fog Compute Team4 
+> **Overview** 
+> This framework proposes a highly resilient, hybrid edge-cloud architecture designed to optimize computational efficiency while ensuring robust access control. The system is structurally divided into **Edge-Side Biometric Intelligence** and **Cloud-Collaborative Security**.
 
----
+<br>
 
-### 💡 Core Highlights
+### 🧠 I. Edge-Side Biometric Intelligence
 
-> ### 🖐️ Vision-Driven Low-Power Wake-Up
-> - **Core Tech:** Lightweight Edge Gesture Detection Model
-> - **Mechanism:** The system typically idles in an ultra-low-power standby mode. Upon detecting specific hand gestures (e.g., a raised index finger) via the lightweight edge model, it instantly triggers a full-system wake-up.
-> - **Advantage:** Seamlessly transitions computing resources from sleep to high-performance recognition mode, drastically optimizing the edge device's overall energy efficiency.
->
-> ---
->
-> ### 🧠 Dual-Engine Deep Learning Facial Recognition
-> - **Core Tech:** ArcFace + FaceNet dual-track cross-verification, CLAHE dynamic image enhancement.
-> - **Mechanism:** Applies CLAHE prior to feature extraction to overcome backlight and low-light interference, followed by a dual-track algorithmic approach for feature matching and cross-verification.
-> - **Advantage:** This composite architecture guarantees exceptional biometric accuracy, establishing a highly resilient security perimeter.
->
-> ---
->
-> ### ☁️ Edge-Cloud Collaborative Security Monitoring
-> - **Core Tech:** Supabase Cloud Infrastructure
-> - **Mechanism:** Instantly captures images and triggers alerts at the edge node whenever unauthorized facial features (e.g., unverified intruders) are intercepted.
-> - **Advantage:** Pushes real-time alerts and audit logs to the cloud database, establishing a strict access control system with zero-latency remote monitoring.
->
-> ---
->
-> ### 📶 Robust Asynchronous Fault-Tolerant Transmission
-> - **Core Tech:** SQLite local cache layer, background asynchronous threads.
-> - **Mechanism:** During network disruptions, access logs and captured media are safely cached locally. Once connectivity is restored, the system automatically executes asynchronous data retransmission in the background.
-> - **Advantage:** Effectively navigates network fluctuations common in IoT environments, guaranteeing 100% data integrity and zero loss of audit records.
->
-> ---
-> 
-> ### 🔄 Adaptive Whitelist Feature Expansion
-> - **Core Tech:** Continuous Learning
-> - **Mechanism:** Extracts features from daily high-confidence recognition results and dynamically expands them into the local authorized whitelist database.
-> - **Advantage:** The system can steadily optimize the efficiency of the recognition algorithm and overall user experience over time and daily use.
+**🖐️ 1. Vision-Driven Ultra-Low-Power Wake-Up**
+> - **Core Technology:** Lightweight Edge Gesture Detection Model.
+> - **Operational Mechanism:** The device inherently maintains an ultra-low-power idling state. Upon the visual detection of a predefined hand gesture (e.g., raised index finger), the model triggers an instantaneous transition to a full-system wake-up.
+> - **System Advantage:** Drastically optimizes edge energy efficiency by exclusively allocating intensive computing resources during active recognition phases.
+
+**👁️ 2. Dual-Engine Deep Learning Facial Recognition**
+> - **Core Technology:** ArcFace & FaceNet dual-track verification, CLAHE dynamic image enhancement.
+> - **Operational Mechanism:** Implements Contrast Limited Adaptive Histogram Equalization (CLAHE) to mitigate extreme lighting conditions prior to feature extraction. Subsequently, it employs a dual-track algorithmic paradigm for cross-verification.
+> - **System Advantage:** Establishes a highly resilient biometric perimeter, guaranteeing exceptional matching accuracy even in sub-optimal environments.
+
+**🔄 3. Adaptive Whitelist Feature Expansion**
+> - **Core Technology:** Continuous Edge Learning.
+> - **Operational Mechanism:** Dynamically extracts latent features from daily high-confidence recognition instances, iteratively updating the local authorized whitelist database.
+> - **System Advantage:** Progressively refines algorithmic accuracy and optimizes the user experience (UX) through daily operational learning.
 
 ---
 
-### 📊 Architecture Summary
+### ☁️ II. Cloud-Collaborative Security & Fault Tolerance
 
-| Module | Core Tech | Key Benefit | Design Focus |
+**🚨 1. Zero-Latency Threat Interception & Cloud Synchronization**
+> - **Core Technology:** Supabase Cloud Infrastructure.
+> - **Operational Mechanism:** Upon interception of an unauthorized or unverified facial profile, the system instantly refuses entry and executes site capture. The event logs and image payloads are synchronously pushed to the Supabase cloud layer.
+> - **System Advantage:** Facilitates a strict access control audit trail and enables sub-second, remote zero-latency monitoring.
+
+**📶 2. Robust Asynchronous Fault-Tolerant Transmission**
+> - **Core Technology:** SQLite Local Cache Layer & Background Asynchronous Threads.
+> - **Operational Mechanism:** Simulates a distributed queue during network disruptions by caching captured media and access logs in a local SQLite database. Upon network restoration, asynchronous background threads automatically execute payload retransmission.
+> - **System Advantage:** Effectively mitigates data loss during IoT network partitions, guaranteeing 100% audit log integrity.
+
+<br>
+
+### 📊 Architectural & Security Matrix
+
+| Functional Module | Core Technology | Operational Paradigm | Key Benefit & Design Focus |
 | :--- | :--- | :--- | :--- |
-| **Low-Power Wake-Up** | Lightweight Edge Gesture Model | Drastically extends battery life | Green computing, extreme energy saving |
-| **Facial Recognition** | ArcFace + FaceNet + CLAHE | Overcomes extreme lighting, high accuracy | Dual-track verification, high fault tolerance |
-| **Edge-Cloud Sync** | Supabase Cloud | Sub-second anomaly alerts & event tracking | Zero-latency monitoring, security auditing |
-| **Fault-Tolerant Tx** | SQLite + Async Threads | Auto-resume upon reconnection, prevents data loss | 100% data integrity |
-| **Adaptive Whitelist** | Continuous Learning | Optimizes recognition efficiency over time | Dynamic expansion, UX improvement |
+| **Standby & Wake-Up** | Lightweight Edge Gesture Model | Vision-Driven Activation | **Green Computing:** Drastically extends device longevity. |
+| **Biometric Verification** | ArcFace + FaceNet + CLAHE | Dual-Track Cross-Verification | **High Fault Tolerance:** Overcomes extreme lighting interference. |
+| **Continuous Learning** | Adaptive Whitelist Algorithms | Dynamic Feature Expansion | **UX Optimization:** Steadily improves recognition efficiency. |
+| **Threat Management** | Supabase Cloud Integration | Real-time Interception & Push | **Zero-Latency Auditing:** Instantaneous remote monitoring. |
+| **Network Resiliency** | SQLite + Async Threads | Offline Caching & Auto-Resume | **Data Integrity:** Guarantees zero loss of security records. |
 
-## 🎥 Demo & Showcase
+---
+
+## 🎥 Demo
 
 The operation results are visually compared between the **PC Core Computing Node** and the **Raspberry Pi Edge Node**.
 
@@ -160,23 +159,6 @@ The operation results are visually compared between the **PC Core Computing Node
 
 ---
 
-## 🏗️ System Architecture
-
-**Client-Server Architecture**, separating lightweight control from heavy computation:
-
-### 📡 Edge Node 
-Deployed at the door
-*   **Image Capture**: Captures real-time video through the camera.
-*   **Low-Latency Transmission**: Uses TCP protocol to stream video to the indoor computing center.
-*   **Physical Control**: Receives verification pass commands and drives the stepper motor to complete the physical door-opening action of "pushing back".
-
-### 💻 Core Computing Node 
-Deployed indoors
-1.  **Gesture Wake-up**: Initiates the recognition process upon detecting a specific gesture.
-2.  **Feature Locking & Enhancement**: Wakes up MediaPipe to lock facial features and immediately performs image enhancement (CLAHE) to overcome light interference.
-3.  **Dual Recognition ( ArcFace + Facenet )**: First uses ArcFace for fast, high-precision determination; if edge values are encountered, seamlessly activates Facenet for secondary confirmation.
-
-
 ## 📂 Project Structure
 
 ```text
@@ -195,15 +177,22 @@ Deployed indoors
 ```
 ---
 
-## 🛡️ Security & Cloud Integration
+## 🏗️ System Architecture
 
-Security Mechanisms:
+**Client-Server Architecture**, separating lightweight control from heavy computation:
 
-| Defense Mechanism | Operational Description |
-| :--- | :--- |
-| **🚨 Stranger Interception & Capture** | When a non-whitelist face is recognized, the system immediately refuses to open the door and automatically takes a photo of the scene. |
-| **☁️ Real-time Cloud Upload** | By integrating the **Supabase** service, images and access logs are pushed to the cloud in real-time, facilitating remote monitoring. |
-| **💾 Offline Cache Mechanism** | In response to network instability in real scenarios, a built-in **SQLite** local backup is provided. Security records are not lost during network disconnection, and will automatically retransmit once the network is restored. |
+### 📡 Edge Node 
+Deployed at the door
+*   **Image Capture**: Captures real-time video through the camera.
+*   **Low-Latency Transmission**: Uses TCP protocol to stream video to the indoor computing center.
+*   **Physical Control**: Receives verification pass commands and drives the stepper motor to complete the physical door-opening action of "pushing back".
+
+### 💻 Core Computing Node 
+Deployed indoors
+1.  **Gesture Wake-up**: Initiates the recognition process upon detecting a specific gesture.
+2.  **Feature Locking & Enhancement**: Wakes up MediaPipe to lock facial features and immediately performs image enhancement (CLAHE) to overcome light interference.
+3.  **Dual Recognition ( ArcFace + Facenet )**: First uses ArcFace for fast, high-precision determination; if edge values are encountered, seamlessly activates Facenet for secondary confirmation.
+
 
 ---
 
