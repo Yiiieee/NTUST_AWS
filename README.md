@@ -16,23 +16,21 @@
 <details>
 <summary><b>📖 Click to expand Table of Contents</b></summary>
 
-- [✨ Core Features & Technical Advantages](#-core-features--technical-advantages)
-  - [🖐️ Vision-Based Low-Power Wake-up Mechanism](#️-vision-based-low-power-wake-up-mechanism)
-  - [🧠 Dual-Engine Deep Learning Facial Recognition](#-dual-engine-deep-learning-facial-recognition)
-  - [☁️ Edge-Cloud Collaborative Security Monitoring](#️-edge-cloud-collaborative-security-monitoring)
-  - [📶 Robust Asynchronous Fault-Tolerant Transmission](#-robust-asynchronous-fault-tolerant-transmission)
-  - [🔄 Adaptive Whitelist Feature Expansion](#-adaptive-whitelist-feature-expansion)
+- [🛠️ Technical Architecture & Core Highlights](#️-technical-architecture--core-highlights)
+  - [💡 Core Highlights](#-core-highlights)
+  - [📊 Architecture Summary](#-architecture-summary)
 - [🎥 Demo & Showcase](#-demo--showcase)
   - [💻 1. PC Node](#-1-pc-node)
   - [📡 2. Raspberry Pi Node](#-2-raspberry-pi-node)
-  - [☁️ 3. Supabase Cloud Storage & Database](#-3-supabase-cloud-storage--database)
+  - [☁️ 3. Supabase Cloud Storage & Database](#️-3-supabase-cloud-storage--database)
 - [🗺️ System Diagrams](#️-system-diagrams)
   - [1. System Flowchart](#1-system-flowchart)
   - [2. Wiring Diagram](#2-wiring-diagram)
   - [3. Zero 2W Pinout Diagram](#3-zero-2w-pinout-diagram)
+- [🔄 Adaptive Whitelist Feature Expansion](#-adaptive-whitelist-feature-expansion)
 - [🏗️ System Architecture](#️-system-architecture)
-  - [📡 Edge Node (Raspberry Pi Zero 2 WH)](#-edge-node-raspberry-pi-zero-2-wh)
-  - [💻 Core Computing Node (PC)](#-core-computing-node-pc)
+  - [📡 Edge Node](#-edge-node)
+  - [💻 Core Computing Node](#-core-computing-node)
 - [📂 Project Structure](#-project-structure)
 - [🛡️ Security & Cloud Integration](#️-security--cloud-integration)
 - [⚙️ Environment & Hardware Setup](#️-environment--hardware-setup)
@@ -42,40 +40,55 @@
   - [Step 1: Sync Code to Edge Node](#step-1-sync-code-to-edge-node)
   - [Step 2: Sequential System Startup](#step-2-sequential-system-startup)
 - [🛠️ Maintenance & Testing](#️-maintenance--testing)
-- [📦 Bill of Materials (BOM)](#-bill-of-materials-bom)
+- [📦 Bill of Materials](#-bill-of-materials)
 - [👥 Team Members](#-team-members)
 
 </details>
 
-## ✨ Core Features & Technical Advantages
+## 🛠️ Technical Architecture & Core Highlights
 
-### 🖐️ Vision-Based Low-Power Wake-up Mechanism
-* **Operational Mechanism**: The system normally maintains a very low-power standby state. Through a lightweight gesture detection model, the user only needs to show a specific gesture ( such as a single-finger feature ) to trigger an instant wake-up.
-* **System Advantage**: Seamlessly switches computing resources from sleep state to full-scale recognition mode, significantly improving the overall energy efficiency of the edge device.
+This system integrates edge computing, dual-track deep learning recognition, and edge-cloud collaborative mechanisms to build a smart IoT security defense system with high energy efficiency, exceptional precision, and robust fault tolerance.
 
 ---
 
-### 🧠 Dual-Engine Deep Learning Facial Recognition
-* **Core Technology**: ArcFace + Facenet dual-track verification, CLAHE dynamic image enhancement.
-* **Operational Mechanism**: Introduces image enhancement technology before feature extraction to overcome backlight and low-light interference, then uses dual-track algorithms for feature matching.
-* **System Advantage**: The composite architecture ensures extremely high biometric matching accuracy, building a highly fault-tolerant security defense network.
+### 💡 Core Highlights
+
+> ### 🖐️ Vision-Driven Low-Power Wake-Up
+> - **Core Tech:** Lightweight Edge Gesture Detection Model
+> - **Mechanism:** The system typically idles in an ultra-low-power standby mode. Upon detecting specific hand gestures (e.g., a raised index finger) via the lightweight edge model, it instantly triggers a full-system wake-up.
+> - **Advantage:** Seamlessly transitions computing resources from sleep to high-performance recognition mode, drastically optimizing the edge device's overall energy efficiency.
+>
+> ---
+>
+> ### 🧠 Dual-Engine Deep Learning Facial Recognition
+> - **Core Tech:** ArcFace + FaceNet dual-track cross-verification, CLAHE dynamic image enhancement.
+> - **Mechanism:** Applies CLAHE prior to feature extraction to overcome backlight and low-light interference, followed by a dual-track algorithmic approach for feature matching and cross-verification.
+> - **Advantage:** This composite architecture guarantees exceptional biometric accuracy, establishing a highly resilient security perimeter.
+>
+> ---
+>
+> ### ☁️ Edge-Cloud Collaborative Security Monitoring
+> - **Core Tech:** Supabase Cloud Infrastructure
+> - **Mechanism:** Instantly captures images and triggers alerts at the edge node whenever unauthorized facial features (e.g., unverified intruders) are intercepted.
+> - **Advantage:** Pushes real-time alerts and audit logs to the cloud database, establishing a strict access control system with zero-latency remote monitoring.
+>
+> ---
+>
+> ### 📶 Robust Asynchronous Fault-Tolerant Transmission
+> - **Core Tech:** SQLite local cache layer, background asynchronous threads.
+> - **Mechanism:** During network disruptions, access logs and captured media are safely cached locally. Once connectivity is restored, the system automatically executes asynchronous data retransmission in the background.
+> - **Advantage:** Effectively navigates network fluctuations common in IoT environments, guaranteeing 100% data integrity and zero loss of audit records.
 
 ---
 
-### ☁️ Edge-Cloud Collaborative Security Monitoring
-* **Core Technology**: Supabase cloud infrastructure.
-* **Operational Mechanism**: When the system detects and intercepts unauthorized facial features ( abnormal intruders ), it will immediately trigger image capture on the edge node.
-* **System Advantage**: Real-time push of unauthorized events and image records to the cloud database establishes a strict access audit mechanism, achieving zero-day remote monitoring.
+### 📊 Architecture Summary
 
----
-
-### 📶 Robust Asynchronous Fault-Tolerant Transmission
-* **Core Technology**: SQLite Local Cache Layer, background asynchronous threads.
-* **Operational Mechanism**: In the event of a network connection interruption, access logs and captured files will be safely stored locally; once the network topology is restored, the system will automatically perform asynchronous data retransmission.
-* **System Advantage**: Effectively overcomes potential network fluctuations in practical IoT fields, ensuring zero omission of all audit records.
-
-
----
+| Module | Core Tech | Key Benefit | Design Focus |
+| :--- | :--- | :--- | :--- |
+| **Low-Power Wake-Up** | Lightweight Edge Gesture Model | Drastically extends battery life | Green computing, extreme energy saving |
+| **Facial Recognition** | ArcFace + FaceNet + CLAHE | Overcomes extreme lighting, high accuracy | Dual-track verification, high fault tolerance |
+| **Edge-Cloud Sync** | Supabase Cloud | Sub-second anomaly alerts & event tracking | Zero-latency monitoring, security auditing |
+| **Fault-Tolerant Tx** | SQLite + Async Threads | Auto-resume upon reconnection, prevents data loss | 100% data integrity |
 
 ## 🎥 Demo & Showcase
 
