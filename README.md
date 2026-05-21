@@ -262,10 +262,22 @@ To establish stable TCP Socket communication, the following initialization seque
 
 ## 👥 Team Members
 
+<div align="center">
 
-| Name | Student ID |
+|  Name | 　Student ID |
 | :---: | :---: |
-| 羅奕程 | M11451021 |
-| 王建傑 | M11451009 |
-| 吳宗韓 | M11451019 |
-| Peeranut Wiwarrawornchai | M11451801 |
+| 🧑‍💻 **羅奕程** | `M11451021` |
+| 🧑‍💻 **王建傑** | `M11451009` |
+| 🧑‍💻 **吳宗韓** | `M11451019` |
+| 🧑‍💻 **Peeranut Wiwarrawornchai** | `M11451801` |
+
+<br>
+
+<img width="691" alt="Team Photo" src="https://github.com/user-attachments/assets/5925b9fd-6615-4f11-b89f-f276370a5238" />
+
+<br>
+
+📍 **Location**  
+*No. 1, Siyuan St., Zhongzheng Dist., Taipei City 100, Taiwan*
+
+</div>
