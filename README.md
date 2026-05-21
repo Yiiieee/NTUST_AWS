@@ -230,9 +230,9 @@ To establish stable TCP Socket communication, the following initialization seque
 
 | Sequence | Executing Device | Terminal Command | Status Description |
 | :---: | :--- | :--- | :--- |
-| **1** | 🍓 Raspberry Pi | `python pi_motor_server.py` | Initializes Port `65432`, awaiting actuation commands from the core node. |
-| **2** | 💻 PC Node | `python pc_gesture.py` | Initializes Port `65434` for video reception and actively establishes a connection for motor control. |
-| **3** | 🍓 Raspberry Pi | `python pi_stream_client.py` | *(Secondary terminal)* Initiates the camera module and streams video data to the PC node. |
+| **1** | Raspberry Pi | `python pi_motor_server.py` | Initializes Port `65432`, awaiting actuation commands from the core node. |
+| **2** | PC Node | `python pc_gesture.py` | Initializes Port `65434` for video reception and actively establishes a connection for motor control. |
+| **3** | Raspberry Pi | `python pi_stream_client.py` | *(Secondary terminal)* Initiates the camera module and streams video data to the PC node. |
 
 ---
 
