@@ -49,21 +49,19 @@
 > **Overview** 
 > This framework proposes a hybrid edge-cloud architecture that aims to balance computational efficiency with robust access control. The proposed system is structurally divided into two primary domains: **Edge-Side Biometric Intelligence** and **Cloud-Collaborative Security**.
 
-<br>
-
 ### 🧠 I. Edge-Side Biometric Intelligence
 
-**🖐️ 1. Vision-Driven Low-Power Wake-Up Mechanism**
+**🖐️  Vision-Driven Low-Power Wake-Up Mechanism**
 > - **Core Technology:** Lightweight Edge-based Gesture Detection Model.
 > - **Operational Mechanism:** The device is designed to inherently maintain a low-power idle state. Upon the visual detection of a predefined hand gesture (e.g., raised index finger), the model initiates a transition to an active system wake-up state.
 > - **System Advantage:** Has the potential to significantly improve edge energy efficiency by primarily allocating intensive computing resources during active recognition phases.
 
-**👁️ 2. Dual-Engine Deep Learning Facial Recognition**
+**👁️  Dual-Engine Deep Learning Facial Recognition**
 > - **Core Technology:** ArcFace & FaceNet dual-path verification, CLAHE dynamic image enhancement.
 > - **Operational Mechanism:** Employs Contrast Limited Adaptive Histogram Equalization (CLAHE) to help mitigate the effects of variable or extreme lighting conditions prior to feature extraction. Subsequently, a dual-path algorithmic approach is utilized for cross-verification.
 > - **System Advantage:** Aims to establish a resilient biometric perimeter, which may contribute to higher matching accuracy even in sub-optimal environmental conditions.
 
-**🔄 3. Adaptive Whitelist Feature Expansion**
+**🔄  Adaptive Whitelist Feature Expansion**
 > - **Core Technology:** Continuous Edge-based Learning.
 > - **Operational Mechanism:** Designed to dynamically extract latent features from high-confidence recognition instances, facilitating iterative updates to the local authorized whitelist database.
 > - **System Advantage:** Intended to progressively refine algorithmic accuracy and potentially enhance the overall user experience (UX) through continuous operational learning.
@@ -72,12 +70,12 @@
 
 ### ☁️ II. Cloud-Collaborative Security & Fault Tolerance
 
-**🚨 1. Near Real-Time Threat Interception & Cloud Synchronization**
+**🚨  Near Real-Time Threat Interception & Cloud Synchronization**
 > - **Core Technology:** Supabase Cloud Infrastructure.
 > - **Operational Mechanism:** Upon the detection of an unauthorized or unverified facial profile, the system is programmed to deny entry and execute site image capture. The corresponding event logs and image payloads are subsequently transmitted to the Supabase cloud layer with minimal delay.
 > - **System Advantage:** Facilitates a comprehensive access control audit trail and supports near real-time, remote monitoring capabilities.
 
-**📶 2. Robust Asynchronous Fault-Tolerant Transmission**
+**📶  Robust Asynchronous Fault-Tolerant Transmission**
 > - **Core Technology:** SQLite Local Cache Layer & Background Asynchronous Threads.
 > - **Operational Mechanism:** Functions as a distributed queue during network disruptions by caching captured media and access logs in a local SQLite database. Upon network restoration, asynchronous background threads are triggered to automatically execute payload retransmission.
 > - **System Advantage:** Helps mitigate the risk of data loss during IoT network partitions, thereby contributing to a higher degree of audit log integrity.
