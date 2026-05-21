@@ -175,19 +175,33 @@
 
 ## 🏗️ System Architecture
 
-**Distributed Client-Server Framework**, designed to decouple lightweight edge-based actuation from computationally intensive tasks:
+**Distributed Client-Server Framework**  
+*Designed to decouple lightweight edge-based actuation from computationally intensive tasks.*
 
-### 📡 Edge Node 
-*Deployed at the access point*
-*   **Image Acquisition**: Facilitates real-time video capture via the integrated camera module.
-*   **Low-Latency Transmission**: Utilizes the TCP protocol to stream video payloads to the central computing node with minimal delay.
-*   **Physical Actuation**: Designed to receive verification-success signals and drive the stepper motor, facilitating the mechanical unlocking sequence.
+---
 
-### 💻 Core Computing Node 
-*Deployed in a secure indoor environment*
-1.  **Gesture-Triggered Activation**: Initiates the biometric recognition sequence upon the detection of predefined hand gestures.
-2.  **Feature Localization & Enhancement**: Invokes MediaPipe to identify facial landmarks and subsequently applies Contrast Limited Adaptive Histogram Equalization (CLAHE) to help mitigate variable lighting interference.
-3.  **Dual-Path Biometric Verification (ArcFace + FaceNet)**: Primarily utilizes ArcFace for high-efficiency assessment; in cases of marginal confidence scores, the system is engineered to dynamically invoke FaceNet for secondary cross-verification.
+### 📡 Edge Node
+*📍 Deployed at the access point*
+
+| Capability | Technical Description |
+|---|---|
+| **Image Acquisition** | Facilitates real-time video capture via the integrated camera module. |
+| **Low-Latency Transmission** | Utilizes the TCP protocol to stream video payloads to the central computing node with minimal delay. |
+| **Physical Actuation** | Receives verification-success signals and drives the stepper motor, facilitating the mechanical unlocking sequence. |
+
+---
+
+### 💻 Core Computing Node
+*📍 Deployed in a secure indoor environment*
+
+1. **Gesture-Triggered Activation**
+   Initiates the biometric recognition sequence upon the detection of predefined hand gestures.
+
+2. **Feature Localization & Enhancement** *(MediaPipe + CLAHE)*
+   Invokes MediaPipe to identify facial landmarks and subsequently applies Contrast Limited Adaptive Histogram Equalization (CLAHE) to help mitigate variable lighting interference.
+
+3. **Dual-Path Biometric Verification** *(ArcFace Primary + FaceNet Fallback)*
+   Primarily utilizes ArcFace for high-efficiency assessment; in cases of marginal confidence scores, the system is engineered to dynamically invoke FaceNet for secondary cross-verification.
 
 ---
 
