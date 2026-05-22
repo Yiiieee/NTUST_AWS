@@ -273,7 +273,7 @@ To establish stable TCP Socket communication, the following initialization seque
 
 <br>
 
-<img width="691" alt="Team Photo" src="https://github.com/user-attachments/assets/5925b9fd-6615-4f11-b89f-f276370a5238" />
+<img width="691" alt="Team Photo" src="https://github.com/user-attachments/assets/0dac529a-cc0b-42ae-83e3-1a84616f9d75" />
 
 <br>
 
