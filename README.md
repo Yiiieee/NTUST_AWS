@@ -104,7 +104,7 @@
 
 | 🚪 Physical Actuation Mechanism | 📡 Near Real-Time Video Stream Monitoring |
 | :---: | :---: |
-| <img src="docs/images/motor_action.gif" width="400" alt="Motor action gif"> | <img src="https://github.com/user-attachments/assets/9c8f5fee-e40e-4ea5-92ef-6c38fdc23ed2" width="400" alt="PC displays Raspberry Pi camera feed"> |
+| <img src="https://github.com/user-attachments/assets/28c8360a-c4da-4c3e-8fb1-1196bbe56d93"> | <img src="https://github.com/user-attachments/assets/9c8f5fee-e40e-4ea5-92ef-6c38fdc23ed2" width="400" alt="PC displays Raspberry Pi camera feed"> |
 | *Upon successful biometric verification, a control signal is transmitted to actuate the motor, facilitating the physical opening of the door.* | *The PC node is designed to receive and render the TCP-based video stream transmitted from the external Raspberry Pi, enabling near real-time surveillance.* |
 | ✅ **Verification Successful** | ❌ **Unauthorized Interception** |
 | <img src="https://github.com/user-attachments/assets/80b85d77-0145-4645-b077-9794b14251f1" width="400" alt="Successfully recognized as owner"> | <img src="https://github.com/user-attachments/assets/1c32897d-4bc3-4983-9333-9518247a86f4" width="400" alt="Successfully recognized as non-owner"> |
@@ -112,19 +112,22 @@
 
 ### 📡 2. Raspberry Pi Edge Node
 
-**🍓 Hardware Configuration and Actuation Mechanism of the Edge Node**  
-<br>
-<img src="docs/images/pi_hardware_setup.jpg" width="800" alt="Hardware integration of Raspberry Pi">  
-> *(Illustration of the physical integration comprising the Pi Zero 2 WH, camera module, stepper motor, and ULN2003 driver board)*
+#### 🍓 Hardware Configuration and Actuation Mechanism of the Edge Node
 
-<br>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/7bdc0d38-30c4-4e29-a1cb-5719bdb1a8ef" width="600" alt="Hardware integration of Raspberry Pi">
+  <br>
+  <em>Illustration of the physical integration comprising the Pi Zero 2 WH, camera module, stepper motor, and ULN2003 driver board.</em>
+</p>
+
+---
+
+#### 💻 System Monitoring Logs
 
 | 🔌 Motor Actuation Signal Reception | 👁️ TCP Connection and Stream Monitoring |
 | :---: | :---: |
-| <img src="https://github.com/user-attachments/assets/126b227b-0d46-4c87-b6c6-c0394cf4d281" width="400" alt="Receiving signal from motor"> | <img src="https://github.com/user-attachments/assets/8bf7d43e-f972-43d8-9358-dd8468756bba" width="400" alt="Listening to return signal"> |
-| *Terminal Output: Indicates the reception of the actuation command from the PC core node, preceding the initiation of GPIO control sequences.* | *Terminal Output: Demonstrates the establishment of the TCP connection, which is designed to facilitate ongoing video streaming and monitor bidirectional signaling.* |
-
----
+| <img src="https://github.com/user-attachments/assets/126b227b-0d46-4c87-b6c6-c0394cf4d281" width="100%"> | <img src="https://github.com/user-attachments/assets/8bf7d43e-f972-43d8-9358-dd8468756bba" width="100%"> |
+| **Terminal Output:**<br>Indicates the reception of the actuation command from the PC core node, preceding the initiation of GPIO control sequences. | **Terminal Output:**<br>Demonstrates the establishment of the TCP connection, which is designed to facilitate ongoing video streaming and monitor bidirectional signaling. |
 
 ### ☁️ 3. Supabase Cloud Storage & Database
 
