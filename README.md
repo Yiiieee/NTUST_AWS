@@ -100,6 +100,19 @@
 > **Overview**  
 > This section presents a comparative visual analysis of the operational outcomes between the **PC Core Computing Node** and the **Raspberry Pi Edge Node**. The demonstration aims to illustrate the practical execution and responsiveness of the proposed framework.
 
+### 🎬 Live Demo Video
+
+<p align="center">
+  <video src="https://github.com/user-attachments/assets/b8c30a4f-a8a5-466f-9a25-e4379e147ff9" width="85%" controls muted playsinline style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"></video>
+  <br>
+</p>
+
+---
+
+
+
+
+
 ### 💻 1. PC Node
 
 | 🚪 Physical Actuation Mechanism | 📡 Near Real-Time Video Stream Monitoring |
