@@ -17,8 +17,8 @@ Command '1' activates the motor, and '0' is treated as no-action.
 HOST = '0.0.0.0'  # 監聽所有網路介面
 PORT = 65432      # 監聽的 Port
 MOTOR_PINS = [17, 18, 27, 22]  # ULN2003 接到的 GPIO
-STEP_DELAY = 0.0025  # 每步停頓時間 (秒)
-STEP_COUNT = 512     # 轉動步數，視需求可調整
+STEP_DELAY = 0.0015  # 每步停頓時間 (秒)
+STEP_COUNT_90_DEG = 1200  # 轉動步數 (90度)
 
 # 28BYJ-48 半步階序
 STEP_SEQUENCE = [
@@ -79,8 +79,16 @@ def activate_motor():
     print("====================")
     print("     開始驅動馬達      ")
     print("====================")
-    step_motor(STEP_COUNT, direction=1)
-    time.sleep(0.5)
+    
+    print(f"正轉 90 度 ({STEP_COUNT_90_DEG} 步)...")
+    step_motor(STEP_COUNT_90_DEG, direction=1)
+    
+    print("等待 1 秒...")
+    time.sleep(1)
+    
+    print(f"反轉 90 度 ({STEP_COUNT_90_DEG} 步)...")
+    step_motor(STEP_COUNT_90_DEG, direction=-1)
+    
     print("馬達轉動完成。")
 
 

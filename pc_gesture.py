@@ -163,9 +163,19 @@ def main():
     t.start()
     
     # 開啟本機相機作為備用 (如果樹莓派沒開相機，就先用筆電相機)
-    cap = cv2.VideoCapture(0)
+    # 在 Windows 環境下，加上 cv2.CAP_DSHOW 通常能解決無法開啟相機的問題
+    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+    if not cap.isOpened():
+        cap = cv2.VideoCapture(0) # 退回預設方式嘗試
+        if not cap.isOpened():
+            cap = cv2.VideoCapture(1, cv2.CAP_DSHOW) # 嘗試外接攝影機
+            
     if cap.isOpened():
-        print("已開啟本機攝影機 0 (當樹莓派未連線時備用)")
+        print("已開啟本機攝影機 (當樹莓派未連線時備用)")
+    else:
+        print("【警告】無法開啟任何本機攝影機！請檢查：")
+        print("1. 相機是否被其他程式占用 (例如 Teams, Zoom, Line)")
+        print("2. Windows 設定 -> 隱私權與安全性 -> 相機，是否允許應用程式存取相機")
 
     try:
         last_signal_time = 0
