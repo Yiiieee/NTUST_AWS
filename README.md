@@ -282,7 +282,7 @@ To establish stable TCP Socket communication, the following initialization seque
 
 <div align="center">
 
-### 🌐 [**🔗  Project Website**](https://2734677.mobirisesite.com/#)
+###  [**🔗  Project Website**](https://2734677.mobirisesite.com/#)
 
 |  Name |  Student ID |
 | :---: | :---: |
