@@ -282,7 +282,9 @@ To establish stable TCP Socket communication, the following initialization seque
 
 <div align="center">
 
-|  Name | 　Student ID |
+### 🌐 [**🔗  Project Website**](https://2734677.mobirisesite.com/#)
+
+|  Name |  Student ID |
 | :---: | :---: |
 | 🧑‍💻 **羅奕程** | `M11451021` |
 | 🧑‍💻 **王建傑** | `M11451009` |
@@ -291,12 +293,10 @@ To establish stable TCP Socket communication, the following initialization seque
 
 <br>
 
-
 <img width="691" alt="Team Photo" src="https://github.com/user-attachments/assets/e6966c85-5c5b-4a95-be30-52b01f028165" />
 
 <br>
 
-📍 **Location**  
-*No. 1, Siyuan St., Zhongzheng Dist., Taipei City 100, Taiwan*
+📍 **Location** *No. 1, Siyuan St., Zhongzheng Dist., Taipei City 100, Taiwan*
 
 </div>
