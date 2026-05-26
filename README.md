@@ -286,10 +286,10 @@ To establish stable TCP Socket communication, the following initialization seque
 
 |  Name |  Student ID |
 | :---: | :---: |
-| 🧑‍💻 **羅奕程** | `M11451021` |
-| 🧑‍💻 **王建傑** | `M11451009` |
-| 🧑‍💻 **吳宗韓** | `M11451019` |
-| 🧑‍💻 **Peeranut Wiwarrawornchai** | `M11451801` |
+|  **羅奕程** | `M11451021` |
+|  **王建傑** | `M11451009` |
+|  **吳宗韓** | `M11451019` |
+|  **Peeranut Wiwarrawornchai** | `M11451801` |
 
 <br>
 
