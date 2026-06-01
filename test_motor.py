@@ -23,7 +23,8 @@ except Exception as e:
 STEP_DELAY = 0.0015             
 # 28BYJ-48 步進馬達內部轉子轉一圈是 64 步，加上減速比 1:64，所以外部軸轉一圈需要 64 * 64 = 4096 步 (半步模式)
 # 360度 = 4096步，90度 = 4096 / 4 = 1024 步
-STEP_COUNT_90_DEG = 1200
+#STEP_COUNT_90_DEG = 1200
+STEP_COUNT_90_DEG = 4096
 
 # 28BYJ-48 半步階序 (8 steps)
 STEP_SEQUENCE = [

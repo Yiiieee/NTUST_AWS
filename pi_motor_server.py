@@ -80,13 +80,13 @@ def activate_motor():
     print("     開始驅動馬達      ")
     print("====================")
     
-    print(f"正轉 90 度 ({STEP_COUNT_90_DEG} 步)...")
+    print(f"正在開門({STEP_COUNT_90_DEG} 步)...")
     step_motor(STEP_COUNT_90_DEG, direction=1)
     
     print("等待 1 秒...")
     time.sleep(1)
     
-    print(f"反轉 90 度 ({STEP_COUNT_90_DEG} 步)...")
+    print(f"正在關門({STEP_COUNT_90_DEG} 步)...")
     step_motor(STEP_COUNT_90_DEG, direction=-1)
     
     print("馬達轉動完成。")
