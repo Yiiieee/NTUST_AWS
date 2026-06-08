@@ -111,13 +111,15 @@
 
 
 
+
+
 ---
 
 ### 💻 1. PC Node
 
 | 🚪 Physical Actuation Mechanism | 📡 Near Real-Time Video Stream Monitoring |
 | :---: | :---: |
-| <img src="https://github.com/user-attachments/assets/28c8360a-c4da-4c3e-8fb1-1196bbe56d93"> | <img src="https://github.com/user-attachments/assets/9c8f5fee-e40e-4ea5-92ef-6c38fdc23ed2" width="400" alt="PC displays Raspberry Pi camera feed"> |
+| <img src="https://github.com/user-attachments/assets/332f1bf0-3c0d-4533-8573-0ac8c47ab6bf"> | <img src="https://github.com/user-attachments/assets/9c8f5fee-e40e-4ea5-92ef-6c38fdc23ed2" width="400" alt="PC displays Raspberry Pi camera feed"> |
 | *Upon successful biometric verification, a control signal is transmitted to actuate the motor, facilitating the physical opening of the door.* | *The PC node is designed to receive and render the TCP-based video stream transmitted from the external Raspberry Pi, enabling near real-time surveillance.* |
 | ✅ **Verification Successful** | ❌ **Unauthorized Interception** |
 | <img src="https://github.com/user-attachments/assets/80b85d77-0145-4645-b077-9794b14251f1" width="400" alt="Successfully recognized as owner"> | <img src="https://github.com/user-attachments/assets/1c32897d-4bc3-4983-9333-9518247a86f4" width="400" alt="Successfully recognized as non-owner"> |
