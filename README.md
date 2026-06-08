@@ -103,11 +103,13 @@
 ### 🎬 Live Demo Video
 
 <p align="center">
-  <video src="https://github.com/user-attachments/assets/b8c30a4f-a8a5-466f-9a25-e4379e147ff9" width="85%" controls muted playsinline style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"></video>
+  <video src="https://github.com/user-attachments/assets/9a399bf5-bd71-4a6d-95ac-a291e21fc296" width="85%" controls muted playsinline style="border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"></video>
   <br>
 </p>
 
-[點此在yt看](https://youtu.be/XHgqGm8hH9I)
+[點此在yt看](https://youtu.be/HVs0F1qfYu4)
+
+
 
 ---
 
