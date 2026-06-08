@@ -113,10 +113,6 @@
 
 ---
 
-
-
-
-
 ### 💻 1. PC Node
 
 | 🚪 Physical Actuation Mechanism | 📡 Near Real-Time Video Stream Monitoring |
@@ -132,10 +128,11 @@
 #### 🍓 Hardware Configuration and Actuation Mechanism of the Edge Node
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/7bdc0d38-30c4-4e29-a1cb-5719bdb1a8ef" width="600" alt="Hardware integration of Raspberry Pi">
+  <img src="https://github.com/user-attachments/assets/91c89896-fcb2-4ad5-8717-16df701268e9" width="600" alt="Hardware integration of Raspberry Pi">
   <br>
   <em>Illustration of the physical integration comprising the Pi Zero 2 WH, camera module, stepper motor, and ULN2003 driver board.</em>
 </p>
+
 
 ---
 
