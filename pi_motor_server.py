@@ -2,7 +2,7 @@
 import time
 
 try:
-    import RPi.GPIO as GPIO
+    import RPi.GPIO as GPIO # type: ignore
     GPIO_AVAILABLE = True
 except ImportError:
     GPIO_AVAILABLE = False
