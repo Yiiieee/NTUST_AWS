@@ -12,7 +12,7 @@ from cloud_sync import init_cloud_sync, upload_intruder
 
 
 # ================= 參數設定 =================
-PI_IP = '192.168.0.192'  # 樹莓派的 IP 地址
+PI_IP = '172.20.10.2'  # 樹莓派的 IP 地址
 PI_PORT = 65432
 PC_STREAM_PORT = 65434   # 接收影像串流的 Port
 

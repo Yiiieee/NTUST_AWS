@@ -18,7 +18,7 @@ HOST = '0.0.0.0'  # 監聽所有網路介面
 PORT = 65432      # 監聽的 Port
 MOTOR_PINS = [17, 18, 27, 22]  # ULN2003 接到的 GPIO
 STEP_DELAY = 0.0015  # 每步停頓時間 (秒)
-STEP_COUNT_90_DEG = 1200  # 轉動步數 (90度)
+STEP_COUNT_90_DEG = 8192  # 轉動步數 (90度)
 
 # 28BYJ-48 半步階序
 STEP_SEQUENCE = [

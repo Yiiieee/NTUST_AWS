@@ -11,14 +11,9 @@ echo 準備上傳最新程式到樹莓派
 echo 目標 IP: %PI_IP%
 echo ==========================================
 echo.
-echo [1/3] 上傳馬達伺服器 (pi_motor_server.py)...
-scp "c:\Users\h0928\OneDrive\桌面\VScode\AWS\pi_motor_server.py" %PI_USER%@%PI_IP%:%TARGET_DIR%
-
-echo [2/3] 上傳馬達測試腳本 (test_motor.py)...
-scp "c:\Users\h0928\OneDrive\桌面\VScode\AWS\test_motor.py" %PI_USER%@%PI_IP%:%TARGET_DIR%
-
-echo [3/3] 上傳影像串流客戶端 (pi_stream_client.py)...
-scp "c:\Users\h0928\OneDrive\桌面\VScode\AWS\pi_stream_client.py" %PI_USER%@%PI_IP%:%TARGET_DIR%
+echo 正在上傳程式檔案 (將會提示輸入樹莓派的密碼)...
+cd /d "%~dp0"
+scp pi_motor_server.py test_motor.py pi_stream_client.py %PI_USER%@%PI_IP%:%TARGET_DIR%
 
 echo.
 echo ==========================================

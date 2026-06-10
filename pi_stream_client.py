@@ -8,7 +8,7 @@ This client captures a local camera feed and streams JPEG frames to the PC host 
 It reduces resolution and JPEG quality to improve network performance.
 """
 
-PC_IP = '192.168.0.148'  # PC 的區域網路 IP
+PC_IP = '172.20.10.3'  # PC 的區域網路 IP
 PC_PORT = 65434          # PC 接收影像的 Port
 
 def get_camera():
