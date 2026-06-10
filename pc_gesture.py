@@ -179,7 +179,7 @@ def main():
 
     try:
         last_signal_time = 0
-        COOLDOWN = 10.0  
+        COOLDOWN = 5
         
         print("開始讀取影像與手勢辨識...")
         while True:
@@ -369,7 +369,7 @@ def main():
                             
                         last_signal_time = time.time()  
                         
-                        for _ in range(5):
+                        for _ in range(3):
                             if stream_active:
                                 time.sleep(0.1)
                             else:
